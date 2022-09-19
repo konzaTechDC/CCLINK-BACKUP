@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+      <!-- jQuery -->
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}"></script>
+     <!-- Bootstrap -->
+    <link href="{% static 'assets/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'assets/vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+      <!-- iCheck -->
+	<link href="{% static 'assets/vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link href="{% static 'assets/vendors/google-code-prettify/bin/prettify.min.css' %}" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="{% static 'assets/vendors/select2/dist/css/select2.min.css' %}" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="{% static 'assets/vendors/switchery/dist/switchery.min.css' %}" rel="stylesheet">
+	<!-- starrr -->
+	<link href="{% static 'assets/vendors/starrr/dist/starrr.css' %}" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link href="{% static 'assets/vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{% static 'assets/vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="{% static 'assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="{% static 'assets/vendors/pnotify/dist/pnotify.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/pnotify/dist/pnotify.buttons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/pnotify/dist/pnotify.nonblock.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet">
+
+    <title>Compliance Report</title>
+</head>
+<body>
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+            <div class="x_title">
+            <h2>Compliance report for {{ entry.project_name }} for period {{ entry.month }}/{{ entry.year }} <small>Personnel</small></h2>
+            <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Designation</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Telephone</th>
+                    <th>Documents</th>
+                    <th>Feedback</th>
+                            
+                </tr>
+                </thead>
+                <tbody>
+                {% for personnel in entry.get_personnel %}
+                <tr>
+                    <!--<th scope="row">1</th>-->
+                    <td>{{personnel.designation.designation_name}}</td>
+                    <td>{{ personnel.first_name }} {{ personnel.other_name }}</td>
+                    <td>{{ personnel.email }}</td>
+                    <td>{{ personnel.tel_number }}</td>
+                    <td>
+                        {% for attachment in personnel.get_attachments %}
+                                                              
+                            <div class="file-name">
+                                {{ attachment.description }}
+                            </div>
+
+
+                            <div class="links">
+                                <a target="_blank" href="{{ attachment.attachment.url }}">Download</a>
+                            </div>
+
+                        {% endfor %}
+                    </td>
+
+                    <!-- check if there is a non-compliance issue, if true; display the notes, if false; display a button-->
+                    <td>
+                        {% load noncompliance %}
+
+                        {% get_personnel_issue entry.id personnel.id as issue %}
+                        {% if issue == None %}
+                        {% if request.user.is_projectmanager or request.user.is_admin %}
+                            <p>no comment</p>
+                        {% endif %}
+                        {% else %}
+                            <p class="text-danger">{{ issue.notes }}</p><br />
+                        {% endif %}
+                                                                     
+
+                    </td>
+                    <!--end non compliance check-->
+                </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+
+
+            </div>
+        </div>
+        </div>
+
+        {% for module in entry.compliance_record.get_compliance_modules %}
+            
+            <div class="col-md-6 col-sm-6  ">
+            <div class="x_panel">
+                <div class="x_title">
+                <h2>KONZA TECHNOPOLIS DEVELOPMENT AUTHORITY CONSTRUCTION COMPLIANCE ON {{ module.name }} <small>Last updated {{ entry.updated_at }}</small></h2>
+                    
+                <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Reference/Parameter(s)</th>
+                        <th>Requirement</th>
+                        <th style="width: 40%">Metrics</th>
+                        <th>Documents</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for reference in module.get_compliance_references %}
+                    {% for requirement in reference.get_reference_requirements %}
+                    <tr>
+                        <td>{{reference.reference}}: {{reference.parameter}}</td>
+                        <td>{{requirement.requirement_name}}</td>
+                        <td>
+                            {% for metric in requirement.get_metrics %}
+                                {% for submission in metric.get_submissions %}
+                                    {% if entry == submission.record_entry %}
+                                        <strong class="text-primary">{{ metric.metric_type }}:</strong> {{ submission.notes }}<br /><hr />
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for attachment_detail in requirement.get_attachment_details %}
+                                {% for attachment_submission in attachment_detail.get_submissions %}
+                                    {% if attachment_submission.record_entry == entry %}
+                                        <div class="file-name">
+                                            {{ attachment_detail.document_name }}
+                                        </div>
+
+
+                                        <div class="links">
+                                            <a target="_blank" href="{{ attachment_submission.attachment.url }}">Download</a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </td>
+                        <!-- check if there is a non-compliance issue, if true; display the notes, if false; display a button-->
+                        <td>
+                            {% load noncompliance %}
+
+                            {% get_issue entry.id requirement.id as issue %}
+                            {% if issue == None %}
+                                <p>No Comment</p>
+                            {% else %}
+                                <p class="text-danger">{{ issue.notes }}</p><br />
+                            {% endif %}
+                                                                     
+
+                        </td>
+                        <!--end non compliance check-->
+                    </tr>
+                        {% endfor %}
+                        {% endfor %}
+                                
+                    </tbody>
+                </table>
+
+                </div>
+            </div>
+            </div>
+
+        {% endfor %}
+        <!-- jQuery -->
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+   <script src="{% static 'assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+      <!-- Datatables -->
+    <script src="{% static 'assets/vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
+    <script src="{% static 'assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jszip/dist/jszip.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/pdfmake/build/pdfmake.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/pdfmake/build/vfs_fonts.js' %}"></script>
+</body>
+</html>

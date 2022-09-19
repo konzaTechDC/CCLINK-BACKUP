@@ -1,0 +1,460 @@
+ {% load datetime_tags %}
+    {% load form_tags %}
+    {% load model_tags %}
+
+
+              <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-bars"></i> Reports <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      
+                      
+                      
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'contractors' %} active {% endif %}" id="home-tab"  href="{% url 'staff_dashboard_section_toggle' "contractor" "contractors" %}" role="tab" aria-controls="home" aria-selected="true">Contractors</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link{% if tab == 'pending' %} active {% endif %}" id="profile-tab" href="{% url 'staff_dashboard_section_toggle' "contractor" "pending" %}" role="tab" aria-controls="profile" aria-selected="false">Pending Submissions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'acknowledged' %} active {% endif %}" id="profile-tab"  href="{% url 'staff_dashboard_section_toggle' "contractor" "acknowledged" %}" role="tab" aria-controls="profile" aria-selected="false">Acknowledged Submissions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'rejected' %} active {% endif %}" id="profile-tab" href=" {% url 'staff_dashboard_section_toggle' "contractor" "rejected" %} " role="tab" aria-controls="profile" aria-selected="false"> Rejected Submissions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'settings' %} active {% endif %}" id="contact-tab" href="{% url 'staff_dashboard_section_toggle' "contractor" "settings" %}" role="tab" aria-controls="contact" aria-selected="false">Settings</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!--start contractors tab-->
+                      <div class="tab-pane fade {% if tab == 'contractors' %} show active {% endif %}" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <!--contractor list table begin-->
+                          {% if tab == 'contractors' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Contractors <small>List</small></h2>
+                                <div class="pull-right">
+                                      <!-- start modal -->
+                                      <a id="new_contractor_modal" data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-primary">Create New Contractor</a>
+                                      
+                                      <div id="new_contractor_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                          <div class="modal-content">
+                              
+                                            <div class="modal-header">
+                                              <h4 class="modal-title" id="myModalLabel">Add new Contractor account</h4>
+                                              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                               
+                                                <div class="col-md-12 col-sm-12  ">
+                                                    <div class="x_panel">
+                                                      <div class="x_title">
+                                                        <h2><i class="fa fa-bars"></i>Complete form and submit<small>.</small></h2>
+                                        
+                                                        <div class="clearfix"></div>
+                                                      </div>
+                                                      <div class="x_content">
+
+                                                        
+                                                                <form method="post" action="{% url 'create_contractor_account' %}">
+                            
+                                                                    {% csrf_token %}
+                                                                    
+                                                                    <div class="form-group">
+                                                                        <label>Company Name</label>
+                                                                        <input type="text" name="company_name" value="" required class="form-control" />
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Project manager Email</label>
+                                                                        <input type="email" name="email" value="" required class="form-control" />
+                                                                    </div>    
+                                                                    
+                                                                    <div class="form-group">
+                                                                        <label>Project manager Username</label>
+                                                                        <input type="text" name="username" value="" required class="form-control" />
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Project manager First Name</label>
+                                                                        <input type="text" name="first_name" value="" required class="form-control" />
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Project manager Other Name</label>
+                                                                        <input type="text" name="last_name" value="" required class="form-control" />
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Project manager Bio/Designation</label>
+                                                                        <textarea name="bio" value="" required class="form-control" ></textarea>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Company Logo</label>
+                                                                        <input type="file" value="" name="avatar" class="form-control" />
+                                                                    </div>
+
+                                                                                                                                          
+                                                                    
+                                                                    <input type="submit" value="save" class="btn btn-primary" />
+                                                                </form>
+                                                                  <br /><hr />
+
+                                                        
+                                                      </div>
+                                                    </div>
+              
+              
+                                                </div>
+
+
+                                            </div>
+                            
+
+
+                                          </div>
+                                        </div>
+                                      </div>
+                    
+                                      <!-- end modal -->
+                                  </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                      <th>Company Name</th>
+                                      <th>Project Manager</th>
+                                      <th>Email</th>
+                                      <th>Total Submissions</th>
+                                      <th>Pending Submissions</th>
+                                      <th>Acknowledged Submissions</th>
+                                      <th>Rejected Submissions</th>
+                                      <th>Extra</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                      {% for contractor in p_managers %}
+                                    <tr>
+                                      <td>
+                                        {{ contractor.contractorprofile.company_name }}
+                                        {% if contractor.contractorprofile.is_blocked %}
+                                            <span class="badge badge-pill badge-danger">BLOCKED</span>
+                                        {% endif %}
+                                      </td>
+                                      <td>{{ contractor.first_name }} {{ contractor.last_name }}</td>
+                                      <td><a href = "mailto: {{ contractor.email }}">{{ contractor.email }}</a></td>
+                                      <td>{{ contractor.contractorprofile.get_compliance_submissions.count }}</td>
+                                        <td>{{ contractor.get_pending_reports.count }}</td>
+                                      <td>{{ contractor.get_acknowledged_reports.count }}</td>
+                                      <td>{{ contractor.get_rejected_reports.count }}</td>
+                                      <td><a href="{% url 'contractor_profile' contractor.id 'pending' %}" class="btn btn-secondary">View profile</a></td>
+                                    </tr>
+                                      {% endfor %}
+
+
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                          <!-- contractor list table end -->
+                      </div>
+                        <!--end contractors tab-->
+
+                        <!--start pending reports tab-->
+                      <div class="tab-pane {% if tab == 'pending' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'pending' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Pending Submissions <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                  
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                      <th>Company Name</th>
+                                      <th>Project Name</th>
+                                      <th>Contractor Email</th>
+                                      <th>Month</th>
+                                      <th>Year</th>
+                                      <th>Status</th>
+                                      <th>Last Updated at</th>
+                                      <th>Options</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                      {% for submission in entries %}
+                                    <tr>
+                                        <td>{{ submission.id }}</td>
+                                      <td>{{ submission.created_by.contractorprofile.company_name }}</td>
+                                      <td>{{ submission.project_name }}</td>
+                                        <td>{{ submission.created_by.email }}</td>
+                                      <td>{{ submission.get_month }}</td>
+                                      <td>{{ submission.year }}</td>
+                                        <td>{{ submission.status }}</td>
+                                      <td>{{ submission.updated_at }}</td>
+                                      <td><a href="{% url 'view_entry_report' submission.id %}" class="btn btn-secondary">View report</a></td>
+                                    </tr>
+                                      {% endfor %}
+
+
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                          {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end pending reports tab-->
+
+                        
+                        <!--start acknowledged reports tab-->
+                      <div class="tab-pane {% if tab == 'acknowledged' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'acknowledged' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Acknowledged Submissions <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                      <th>Company Name</th>
+                                      <th>Project Name</th>
+                                      <th>Contractor Email</th>
+                                      <th>Month</th>
+                                      <th>Year</th>
+                                      <th>Status</th>
+                                      <th>Last Updated at</th>
+                                      <th>Options</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                      {% for submission in entries %}
+                                    <tr>
+                                        <td>{{ submission.id }}</td>
+                                      <td>{{ submission.created_by.contractorprofile.company_name }}</td>
+                                      <td>{{ submission.project_name }}</td>
+                                        <td>{{ submission.created_by.email }}</td>
+                                      <td>{{ submission.get_month }}</td>
+                                      <td>{{ submission.year }}</td>
+                                        <td>{{ submission.status }}</td>
+                                      <td>{{ submission.updated_at }}</td>
+                                      <td><a href="{% url 'view_entry_report' submission.id %}" class="btn btn-secondary">View report</a></td>
+                                    </tr>
+                                      {% endfor %}
+
+
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                            {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end acknowledged reports tab-->
+
+                        <!--start rejected reports tab-->
+                      <div class="tab-pane {% if tab == 'rejected' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'rejected' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Rejected Submissions <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                      <th>Company Name</th>
+                                      <th>Project Name</th>
+                                      <th>Contractor Email</th>
+                                      <th>Month</th>
+                                      <th>Year</th>
+                                      <th>Status</th>
+                                      <th>Last Updated at</th>
+                                      <th>Options</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                      {% for submission in entries %}
+                                    <tr>
+                                        <td>{{ submission.id }}</td>
+                                      <td>{{ submission.created_by.contractorprofile.company_name }}</td>
+                                      <td>{{ submission.project_name }}</td>
+                                        <td>{{ submission.created_by.email }}</td>
+                                      <td>{{ submission.get_month }}</td>
+                                      <td>{{ submission.year }}</td>
+                                        <td>{{ submission.status }}</td>
+                                      <td>{{ submission.updated_at }}</td>
+                                      <td><a href="{% url 'view_entry_report' submission.id %}" class="btn btn-secondary">View report</a></td>
+                                    </tr>
+                                      {% endfor %}
+
+
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                            {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end rejected reports tab-->
+
+                        <!--start settings tab-->
+                      <div class="tab-pane {% if tab == 'settings' %} show active {% endif %}" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                          {% for record in records %}
+                        <form method="post" action="{% url 'compliance_enable_form' %}">
+                            <h2><u>Toggle submission form</u></h2>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>{% if record.submission_enabled %} disable {% else %} enable {% endif %} {{ record.organization_name }} application forms</label>
+                            <div class="icheckbox_flat-green">
+                                <input class="flat" type="checkbox" name="submission_enabled" {% if record.submission_enabled %}checked {% endif %} />
+                            </div>
+                            </div>
+                            
+                            <input type="hidden" value="{{ record.id }}" name="record_id" />
+                            <input type="submit" value="save" class="btn btn-primary" />
+                        </form>
+                          {% endfor %}
+
+                          <hr /><br />
+
+                          <div class="clearfix"></div>
+                            {% set_default_reminder_message request as context %}
+                          <form method="post" action="{% url 'send_reminder_message' %}">
+                              {% csrf_token %}
+                              <h2><u>Reminder Message</u></h2>
+                              <span class="text-info" >this will send an email to all contractors.</span>
+                            <div class="form-group">
+                              <label>Subject</label>
+                              <input class="form-control" type="text" value="{{ context.subject }}" name="subject" />
+                          </div>
+
+                            <div class="form-group">
+                                <label >Message</label>
+                                <textarea class="form-control" name="message">
+                                    {{ context.message }}
+                                </textarea>
+                            </div>
+                              <div class="form-group">
+                                  <input type="submit" class="btn btn-primary" value="Send" name="Send" />
+                              </div>
+                          </form>
+
+
+                          <br /><hr />
+                            <h3><u>Change Password</u></h3>
+                          <form method="post" action="{% url 'change_password' %}">
+                              {% csrf_token %}
+                          {% get_password_change_form request.user as pass_form %}
+                              {{ pass_form }}
+
+                              {% for error in pass_form.errors %}
+                              <p class="text-danger">{{ error }}</p>
+                              {% endfor %}
+                              <button type="submit">Save changes</button>
+                            </form>
+                      </div>
+
+                        <!-- end settings tab -->
+                    </div>
+                  </div>
+                </div>
+              
+              
+              </div>
+              

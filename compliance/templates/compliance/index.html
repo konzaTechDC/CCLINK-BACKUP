@@ -1,0 +1,158 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	{% if title %}
+        <title>KoTDA  Construction Compliance - {{ title }}</title>
+    {% else %}
+         <title>KoTDA Construction Compliance</title>
+    {% endif %}
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:600|Source+Sans+Pro:600,700" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'assets/css/applify.min.css' %}"/>
+</head>
+<body class="ui-transparent-nav " style="background-color:forestgreen;" data-fade_in="on-load">
+	
+	
+	<!-- Navbar Fixed + Default -->
+    <nav class="navbar navbar-fixed-top transparent navbar-dark " style="background-color:#008234;">
+		<div class="container">
+		
+			<!-- Navbar Logo -->
+			<a class="ui-variable-logo navbar-brand" href="{% url 'home' %}" title="KoTDA Compliance Link">
+				<!-- Default Logo -->
+				<img class="logo-default" height="20" width="20" src="{% static 'img/logo.png'   %}" alt="KoTDA Compliance Link" >
+				<!-- Transparent Logo -->
+				<img class="logo-transparent" height="20" width="20" src="{% static 'img/logo.png'   %}" alt="KoTDA Compliance Link" >
+			</a><!-- .navbar-brand -->
+
+			<!-- Navbar Navigation -->
+			<div class="ui-navigation navbar-center">
+				<ul class="nav navbar-nav">
+                    
+                    <!-- Nav Item 
+					<li class="active">
+						<a href="page-contact.html">Contact</a>
+					</li>-->
+				</ul><!--.navbar-nav -->
+			</div><!--.ui-navigation -->
+
+			<!-- Navbar Button -->
+            {% if request.user.is_authenticated %}
+			<a href="{% url 'home' %}" class="btn btn-sm ui-gradient-green pull-right">Dashboard</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-sm ui-gradient-green pull-right">login</a>
+            {% endif %}
+			<!-- Navbar Toggle -->
+			<a href="#" class="ui-mobile-nav-toggle pull-right"></a>
+
+		</div><!-- .container -->
+	</nav> <!-- nav -->
+	
+	<!-- Main Wrapper -->
+    <div class="main" role="main">
+    	
+    	<!-- Hero -->
+		<div class="ui-hero hero-lg hero-center hero-bg ui-curve hero-svg-layer-4 " style="background-color:lightgray;">
+			<div class="container">
+				<div class="row pt-2 pb-6">
+					<div class="col-sm-12" data-vertical_center="true" data-vertical_offset="16">
+						<h1 class="heading animate" data-show="fade-in-up-big" data-delay="100">
+							KoTDA <span class="text-green">Construction Compliance</span> Reporting
+						</h1>
+                        <!-- Form -->
+                       
+                        
+					</div>
+				</div><!-- .row -->
+			</div><!-- .container -->
+		</div><!-- .ui-hero -->
+  
+        <!-- Intro Image -->
+        <div class="section intro-image pt-0">
+            <img src="{% static 'img/logo.png' %}"  data-max_width="500" class="shadow-xxl responsive-on-lg" alt="KoTDA - Construction Compliance Reporting" />
+        </div><!-- .intro-image -->
+        
+   		<!-- Footer -->
+   		<footer class="ui-footer" style="background-color:#008234;">
+            <div class="container pt-6 pb-6">
+   	            <div class="row">
+  			        <!--
+                        <div class="col-md-4 col-sm-6 footer-about footer-col center-on-sm">
+                        <img src="#" width="400" height="400" alt="KoTDA - Construction Compliance Link"/>
+                       
+                    </div>
+                    -->
+                    <!--
+                        <div class="col-md-2 col-6 footer-col">
+                        <h6 class="heading footer-heading">Quick Nav</h6>
+                        <ul class="footer-nav">
+                            
+                            <li>
+                                <a href="https://www.konza.go.ke/">Main site</a>
+                            </li>
+                            
+                        </ul>
+                    </div>    
+                    -->
+                    
+                </div><!-- .row -->
+            </div><!-- .container -->
+            
+            <!-- Footer Copyright -->
+   			<div class="footer-copyright bg-dark-gray">
+   				<div class="container">
+					<div class="row">
+						<!-- Copyright -->
+						<div class="col-sm-6 center-on-sm">
+							<p>
+								&copy; 2021 <a href="https://www.konza.go.ke/" target="_blank" title="KoTDA">Konza Technopolis Development Authority</a>
+							</p>
+						</div>
+						<!-- Social Icons -->
+						<div class="col-sm-6 text-right">
+							<ul class="footer-nav">
+                                <li>
+                                    <a href="#">
+                                        Privacy Policy
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Terms &amp; Conditions
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.konza.go.ke/knowledge-base/">
+                                        FAQ
+                                    </a>
+                                </li>
+                            </ul>
+						</div>
+					</div>
+   				</div><!-- .container -->
+   			</div><!-- .footer-copyright -->
+            
+   		</footer><!-- .ui-footer -->
+   		
+    </div><!-- .main -->
+    
+    <!-- Scripts -->
+	<script type="text/javascript" src="{% static 'assets/js/libs/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'assets/js/libs/slider-pro/jquery.sliderPro.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'assets/js/libs/owl.carousel/owl.carousel.min.js' %}"></script>
+	<!--
+    # Google Maps
+    # Add Your Google Maps API Key Below !!
+    -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5B2iXEELo6aIReGYLJdVKBlzHnrM0YLU"></script>
+	<script type="text/javascript" src="{% static 'assets/js/applify/ui-map.js' %}"></script>
+	<script type="text/javascript" src="{% static 'assets/js/libs/form-validator/form-validator.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'assets/js/libs/bootstrap.js' %}"></script>
+	<script type="text/javascript" src="{% static 'assets/js/applify/build/applify.js' %}"></script>
+</body>
+</html>

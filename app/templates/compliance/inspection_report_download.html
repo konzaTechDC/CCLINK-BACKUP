@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% load static %}
+    {% load datetime_tags %}
+    {% load model_tags %}
+    <meta charset="utf-8" />
+      <!-- jQuery -->
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}"></script>
+     <!-- Bootstrap -->
+    <link href="{% static 'assets/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'assets/vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+      <!-- iCheck -->
+	<link href="{% static 'assets/vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link href="{% static 'assets/vendors/google-code-prettify/bin/prettify.min.css' %}" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="{% static 'assets/vendors/select2/dist/css/select2.min.css' %}" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="{% static 'assets/vendors/switchery/dist/switchery.min.css' %}" rel="stylesheet">
+	<!-- starrr -->
+	<link href="{% static 'assets/vendors/starrr/dist/starrr.css' %}" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link href="{% static 'assets/vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{% static 'assets/vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="{% static 'assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="{% static 'assets/vendors/pnotify/dist/pnotify.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/pnotify/dist/pnotify.buttons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendors/pnotify/dist/pnotify.nonblock.css' %}" rel="stylesheet">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <title>Compliance Report</title>
+</head>
+<body>
+   
+    <div class="">
+        
+        <div class="page-title">
+            <div class="title_left">
+                <div class="container">
+                    <img src="https://resourcecenter.konza.go.ke/media/repoImages/Konza-Technopolis-logo.png" alt="..." height="80" width="80">
+                </div>
+                <h3 class="text-info">KoTDA Non-Compliance Site Inspection Report- <small>{{ inspection.contractor }}</small></h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+
+        <div class="row">
+            <div class="col-sm-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 class="text-info">{{ inspection.inspection_uid }} <small></small></h2>
+                        <div class="col-md-4 text-right">
+                            <p class="date"> Last updated: [{{ inspection.updated_at }}]</p>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+                    
+                    <h4 class="text-primary">Reported by: <span  class="text-secondary">KoTDA PPDC DEPARTMENT MANAGEMENT </span> </h4>
+                    <hr />
+                    <h4 class="text-primary">Contractor: <span  class="text-secondary"> <a href="{% url 'contractor_profile' inspection.contractor.id 'pending' %}">{{ inspection.contractor }} -( {{ inspection.contractor.project_manager.last_name }} )</a> </span></h4>
+                    <hr />
+                    <h4  class="text-primary">Reference: <span class="text-secondary">{{ inspection.reference.reference }}-{{ inspection.reference.parameter }}</span></h4>
+                    <hr />
+                    <h4 class="text-primary">Observation: </h4> <p class="text-secondary">{{ inspection.observation | safe }}</p>
+                    <hr />
+                    <h4 class="text-primary">Action: </h4> <p class="text-secondary">{{ inspection.action | safe }}</p>
+                    <hr />
+                    <h4 class="text-primary">Coordinates: </h4> <span class="text-secondary">{{ inspection.coordinates | safe }}</span>
+                    <hr />
+                    <h4 class="text-primary">Status: </h4> <span class="text-secondary">{{ inspection.status | safe }}</span>
+                    
+                      
+                </div>
+            </div>
+        </div>
+   
+    
+        <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Media <small> Evidence </small></h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="row">
+                        <p><h4>Coordinates: </h4>[{{ inspection.coordinates | safe }}]</p>
+                        
+                        <h5>Photos</h5>
+                        {% for photo in inspection.get_photos %}
+                        <img src="{{ photo.file }}">
+                        <a href="{{ photo.file.url }}">https://kotdacompliance.konza.go.ke{{ photo.file.url }}</a>
+                        <div class="caption">
+                            <p>{{ photo.file.name }}</p>
+                        </div>
+                        <hr />
+                        {% endfor %}
+                     <hr /><hr />
+                        <h5>Videos</h5>
+                        {% for video in inspection.get_videos %}
+                      <div class="col-md-55">
+                        <div class="thumbnail">
+                          <div class="image view view-first">
+                            
+                            <div>
+                              <div>
+                                <a href="{{ video.file.url }}" target="_blank"><i class="fa fa-play">https://kotdacompliance.konza.go.ke{{ video.file.url }}</i></a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="caption">
+                            <p><strong>{{ video.file.name }}</strong>
+                            </p>
+                            
+                          </div>
+                        </div>
+                      </div>
+                     {% endfor %}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+        
+        <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Comments <span class="badge badge-pill badge-secondary">{{ inspection.get_all_comments.count }}</span></h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+
+                      <div class="row">
+                        {% if inspection.get_reviewer_comments.count > 0 %}
+                        <h4>Reviewer Comments</h4>
+                        {% endif %}
+                        <!-- start of reviewer messages -->
+                        <ul class="messages">
+                        {% for comment in inspection.get_reviewer_comments %}
+                          <li>
+                            <!-- <img src="{{ comment.comment_by.avatar }}" width="50" height="50" class="avatar" alt="Avatar"> -->
+                            <div class="message_date">
+                              <!-- <h3 class="date text-info">24</h3> -->
+                              <p class="month">{{ comment.updated_at }}</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <!-- <h4 class="heading">{{ comment.comment_by.last_name }}</h4> -->
+                              <blockquote class="message">{{ comment.comment | safe }}</blockquote>
+                              <br />
+                           
+                                
+                            </div>
+                          </li>
+                         {% endfor %}
+                        </ul>
+                        <!-- end of reviewer messages -->
+
+
+                        {% if inspection.get_teamleader_comments.count > 0 %}
+                        <h4 class="heading text-info">Team Leader Comments</h4>
+                        {% endif %}
+                        <!-- start of team leader messages -->
+                        <ul class="messages">
+                        {% for comment in inspection.get_teamleader_comments %}
+                          <li>
+                            <img src="{{ comment.comment_by.avatar }}" width="50" height="50" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <!-- <h3 class="date text-info">{{ comment.updated_at.day }}</h3> -->
+                              <p class="month">{{ comment.updated_at }}</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">{{ comment.comment_by.last_name }}</h4>
+                              <blockquote class="message">{{ comment.comment | safe }}</blockquote>
+                              <br />
+                              
+                            </div>
+                          </li>
+                         {% endfor %}
+                        </ul>
+                        <!-- end of team leader messages -->
+
+
+                        {% if inspection.get_manager_comments.count > 0 %}
+                        <h4 class="heading text-info">Chief Manager Comments</h4>
+                        {% endif %}
+                        <!-- start of manager messages -->
+                        <ul class="messages">
+                        {% for comment in inspection.get_manager_comments %}
+                          <li>
+                            <img src="{{ comment.comment_by.avatar }}" width="50" height="50" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <!-- <h3 class="date text-info">{{ comment.updated_at.day }}</h3> -->
+                              <p class="month">{{ comment.updated_at }}</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">{{ comment.comment_by.last_name }}</h4>
+                              <blockquote class="message">{{ comment.comment | safe }}</blockquote>
+                              <br />
+                              
+                            </div>
+                          </li>
+                         {% endfor %}
+                        </ul>
+                        <!-- end of manager messages -->
+
+                          
+                        {% if inspection.get_contractor_comments.count > 0 %}
+                        <h4 class="heading text-info">Project Manager Comments</h4>
+                        {% endif %}
+                        <!-- start of contractor messages -->
+                        <ul class="messages">
+                        {% for comment in inspection.get_contractor_comments %}
+                          <li>
+                            <img src="{{ comment.comment_by.avatar }}" width="50" height="50" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <!-- <h3 class="date text-info">{{ comment.updated_at.day }}</h3> -->
+                              <p class="month">{{ comment.updated_at }}</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">{{ comment.comment_by.last_name }}</h4>
+                              <blockquote class="message">{{ comment.comment | safe }}</blockquote>
+                              <br />
+                              
+                            </div>
+                          </li>
+                         {% endfor %}
+                        </ul>
+                        <!-- end of contractor messages -->
+                      </div>
+
+
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+    
+    </div>
+
+        
+        <!-- jQuery -->
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+   <script src="{% static 'assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,632 @@
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-01-06 08:50:45,295: INFO/MainProcess] Connected to redis://guest@127.0.0.1:6379//
+[2021-01-06 08:50:45,303: INFO/MainProcess] mingle: searching for neighbors
+[2021-01-06 08:50:46,307: INFO/MainProcess] mingle: all alone
+[2021-01-06 08:50:46,314: WARNING/MainProcess] /home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/fixups/django.py:265: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2021-01-06 08:50:46,314: WARNING/MainProcess] celery@compliance-server ready.
+[2021-01-06 11:17:37,581: ERROR/MainProcess] Unrecoverable error: AttributeError("'str' object has no attribute 'items'",)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/__init__.py", line 206, in start
+    self.blueprint.start(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 123, in start
+    step.start(parent)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 374, in start
+    return self.obj.start()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 280, in start
+    blueprint.start(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 123, in start
+    step.start(parent)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 884, in start
+    c.loop(*c.loop_args())
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/loops.py", line 76, in asynloop
+    next(loop)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/async/hub.py", line 340, in create_loop
+    cb(*cbargs)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 1019, in on_readable
+    self._callbacks[queue](message)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/virtual/__init__.py", line 534, in _callback
+    self.qos.append(message, message.delivery_tag)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 146, in append
+    pipe.zadd(self.unacked_index_key, delivery_tag, time()) \
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/client.py", line 2685, in zadd
+    for pair in iteritems(mapping):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/_compat.py", line 159, in iteritems
+    return iter(x.items())
+AttributeError: 'str' object has no attribute 'items'
+ 
+ -------------- celery@compliance-server v3.1.26.post2 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-4.15.0-128-generic-x86_64-with-Ubuntu-18.04-bionic
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         ComplianceReporting:0x7f247ea46358
+- ** ---------- .> transport:   redis://guest@127.0.0.1:6379//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ComplianceReporting.celery.adding_task
+  . ComplianceReporting.celery.debug_task
+  . ComplianceReporting.tasks.adding_task
+  . myTask
+  . send_email_task
+  . send_reminder_email_task
+
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-01-06 11:17:41,305: INFO/MainProcess] Connected to redis://localhost:6379//
+[2021-01-06 11:17:41,314: INFO/MainProcess] mingle: searching for neighbors
+[2021-01-06 11:17:42,319: INFO/MainProcess] mingle: all alone
+[2021-01-06 11:17:42,325: WARNING/MainProcess] /home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/fixups/django.py:265: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2021-01-06 11:17:42,325: WARNING/MainProcess] celery@compliance-server ready.
+[2021-01-06 11:23:09,289: ERROR/MainProcess] Unrecoverable error: AttributeError("'str' object has no attribute 'items'",)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/__init__.py", line 206, in start
+    self.blueprint.start(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 123, in start
+    step.start(parent)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 374, in start
+    return self.obj.start()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 280, in start
+    blueprint.start(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 123, in start
+    step.start(parent)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 884, in start
+    c.loop(*c.loop_args())
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/loops.py", line 76, in asynloop
+    next(loop)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/async/hub.py", line 340, in create_loop
+    cb(*cbargs)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 1019, in on_readable
+    self._callbacks[queue](message)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/virtual/__init__.py", line 534, in _callback
+    self.qos.append(message, message.delivery_tag)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 146, in append
+    pipe.zadd(self.unacked_index_key, delivery_tag, time()) \
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/client.py", line 2685, in zadd
+    for pair in iteritems(mapping):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/_compat.py", line 159, in iteritems
+    return iter(x.items())
+AttributeError: 'str' object has no attribute 'items'
+ 
+ -------------- celery@compliance-server v3.1.26.post2 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-4.15.0-128-generic-x86_64-with-Ubuntu-18.04-bionic
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         ComplianceReporting:0x7f6afb0f3940
+- ** ---------- .> transport:   redis://localhost:6379//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ComplianceReporting.celery.debug_task
+  . adding_task
+  . myTask
+  . send_email_task
+  . send_mail
+  . send_reminder_email_task
+
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-01-06 11:23:13,028: INFO/MainProcess] Connected to redis://localhost:6379//
+[2021-01-06 11:23:13,037: INFO/MainProcess] mingle: searching for neighbors
+[2021-01-06 11:23:14,041: INFO/MainProcess] mingle: all alone
+[2021-01-06 11:23:14,047: WARNING/MainProcess] /home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/fixups/django.py:265: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2021-01-06 11:23:14,047: WARNING/MainProcess] celery@compliance-server ready.
+[2021-04-06 06:02:40,889: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 739, in read_response
+    response = self._parser.read_response()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 324, in read_response
+    raw = self._buffer.readline()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 256, in readline
+    self._read_from_socket()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 201, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 655, in _brpop_read
+    **options)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/client.py", line 915, in parse_response
+    response = connection.read_response()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 749, in read_response
+    self.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 866, in disconnect
+    channel._on_connection_disconnect(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 496, in _on_connection_disconnect
+    self._disconnect_pools()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 484, in _disconnect_pools
+    self._async_pool.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 1270, in disconnect
+    connection.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 866, in disconnect
+    channel._on_connection_disconnect(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 498, in _on_connection_disconnect
+    raise get_redis_ConnectionError()
+redis.exceptions.ConnectionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 280, in start
+    blueprint.start(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 123, in start
+    step.start(parent)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 884, in start
+    c.loop(*c.loop_args())
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/loops.py", line 76, in asynloop
+    next(loop)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/async/hub.py", line 340, in create_loop
+    cb(*cbargs)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 1012, in on_readable
+    item = self.cycle.on_readable(fileno)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 331, in on_readable
+    return chan.handlers[type]()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 659, in _brpop_read
+    self.client.connection.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 866, in disconnect
+    channel._on_connection_disconnect(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 496, in _on_connection_disconnect
+    self._disconnect_pools()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 484, in _disconnect_pools
+    self._async_pool.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 1270, in disconnect
+    connection.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 866, in disconnect
+    channel._on_connection_disconnect(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 498, in _on_connection_disconnect
+    raise get_redis_ConnectionError()
+redis.exceptions.ConnectionError
+[2021-04-06 06:02:40,962: ERROR/MainProcess] Error on restarting Control: AttributeError("'NoneType' object has no attribute 'hostname'",)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 739, in read_response
+    response = self._parser.read_response()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 324, in read_response
+    raw = self._buffer.readline()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 256, in readline
+    self._read_from_socket()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 201, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 655, in _brpop_read
+    **options)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/client.py", line 915, in parse_response
+    response = connection.read_response()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 749, in read_response
+    self.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 866, in disconnect
+    channel._on_connection_disconnect(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 496, in _on_connection_disconnect
+    self._disconnect_pools()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 484, in _disconnect_pools
+    self._async_pool.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 1270, in disconnect
+    connection.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 866, in disconnect
+    channel._on_connection_disconnect(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 498, in _on_connection_disconnect
+    raise get_redis_ConnectionError()
+redis.exceptions.ConnectionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 280, in start
+    blueprint.start(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 123, in start
+    step.start(parent)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 884, in start
+    c.loop(*c.loop_args())
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/loops.py", line 76, in asynloop
+    next(loop)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/async/hub.py", line 340, in create_loop
+    cb(*cbargs)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 1012, in on_readable
+    item = self.cycle.on_readable(fileno)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 331, in on_readable
+    return chan.handlers[type]()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 659, in _brpop_read
+    self.client.connection.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 866, in disconnect
+    channel._on_connection_disconnect(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 496, in _on_connection_disconnect
+    self._disconnect_pools()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 484, in _disconnect_pools
+    self._async_pool.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/redis/connection.py", line 1270, in disconnect
+    connection.disconnect()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 866, in disconnect
+    channel._on_connection_disconnect(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 498, in _on_connection_disconnect
+    raise get_redis_ConnectionError()
+redis.exceptions.ConnectionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 155, in send_all
+    fun(parent, *args)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/pidbox.py", line 55, in stop
+    self.consumer = self._close_channel(c)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/pidbox.py", line 64, in _close_channel
+    ignore_errors(c, self.node.channel.close)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/common.py", line 289, in ignore_errors
+    return fun(*args, **kwargs)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 782, in close
+    self.queue_delete(queue)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/virtual/__init__.py", line 460, in queue_delete
+    self._delete(queue, exchange, *meta)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 738, in _delete
+    with self.conn_or_acquire() as client:
+  File "/usr/lib/python3.6/contextlib.py", line 81, in __enter__
+    return next(self.gen)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 903, in conn_or_acquire
+    yield self._create_client()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 874, in _create_client
+    return self.Client(connection_pool=self.pool)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 908, in pool
+    self._pool = self._get_pool()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 877, in _get_pool
+    params = self._connparams(async=async)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/redis.py", line 820, in _connparams
+    'host': conninfo.hostname or '127.0.0.1',
+AttributeError: 'NoneType' object has no attribute 'hostname'
+[2021-04-06 06:02:40,974: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: .
+Trying again in 2.00 seconds...
+
+
+worker: Warm shutdown (MainProcess)
+ 
+ -------------- celery@compliance-server v3.1.26.post2 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-4.15.0-128-generic-x86_64-with-Ubuntu-18.04-bionic
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         ComplianceReporting:0x7f2ead2d9940
+- ** ---------- .> transport:   redis://localhost:6379//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ComplianceReporting.celery.debug_task
+  . adding_task
+  . myTask
+  . send_email_task
+  . send_mail_not
+  . send_reminder_email_task
+
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-04-06 09:03:12,705: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-04-06 09:03:12,714: INFO/MainProcess] mingle: searching for neighbors
+[2021-04-06 09:03:13,752: INFO/MainProcess] mingle: all alone
+[2021-04-06 09:03:13,763: WARNING/MainProcess] celery@compliance-server ready.
+[2021-04-06 09:03:13,764: CRITICAL/MainProcess] Can't decode message body: ContentDisallowed('Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)',) [type:'application/x-python-serialize' encoding:'binary' headers:{}]
+
+body: b'\x80\x02}q\x00(X\x04\x00\x00\x00taskq\x01X\x0f\x00\x00\x00send_email_taskq\x02X\x02\x00\x00\x00idq\x03X$\x00\x00\x0021bb2ca5-d172-4429-8c47-99f74791cff2q\x04X\x04\x00\x00\x00argsq\x05]q\x06X\x06\x00\x00\x00kwargsq\x07}q\x08(X\x02\x00\x00\x00toq\tX\x16\x00\x00\x00d.rossi@maltaurome.comq\nX\x07\x00\x00\x00subjectq\x0bX#\x00\x00\x00Successful Submit Compliance Reportq\x0cX\x07\x00\x00\x00messageq\rX{\x00\x00\x00The Compliance report on Construction for period 2/2021 has been submitted successfully. Please wait for feedback from PPDCq\x0euX\x07\x00\x00\x00retriesq\x0fK\x00X\x03\x00\x00\x00etaq\x10NX\x07\x00\x00\x00expiresq\x11NX\x03\x00\x00\x00utcq\x12\x88X\t\x00\x00\x00callbacksq\x13NX\x08\x00\x00\x00errbacksq\x14NX\t\x00\x00\x00timelimitq\x15NN\x86q\x16X\x07\x00\x00\x00tasksetq\x17NX\x05\x00\x00\x00chordq\x18Nu.' (498b)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/messaging.py", line 592, in _receive_callback
+    decoded = None if on_m else message.decode()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/message.py", line 142, in decode
+    self.content_encoding, accept=self.accept)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/serialization.py", line 174, in loads
+    raise self._for_untrusted_content(content_type, 'untrusted')
+kombu.exceptions.ContentDisallowed: Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
+[2021-04-06 09:03:15,765: CRITICAL/MainProcess] Can't decode message body: ContentDisallowed('Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)',) [type:'application/x-python-serialize' encoding:'binary' headers:{}]
+
+body: b'\x80\x02}q\x00(X\x04\x00\x00\x00taskq\x01X\x0f\x00\x00\x00send_email_taskq\x02X\x02\x00\x00\x00idq\x03X$\x00\x00\x009a11e021-e7db-46bb-a3b5-7344664a3e00q\x04X\x04\x00\x00\x00argsq\x05]q\x06X\x06\x00\x00\x00kwargsq\x07}q\x08(X\x02\x00\x00\x00toq\tX\x15\x00\x00\x00eric.kagai@huawei.comq\nX\x07\x00\x00\x00subjectq\x0bX#\x00\x00\x00Successful Submit Compliance Reportq\x0cX\x07\x00\x00\x00messageq\rX{\x00\x00\x00The Compliance report on Construction for period 2/2021 has been submitted successfully. Please wait for feedback from PPDCq\x0euX\x07\x00\x00\x00retriesq\x0fK\x00X\x03\x00\x00\x00etaq\x10NX\x07\x00\x00\x00expiresq\x11NX\x03\x00\x00\x00utcq\x12\x88X\t\x00\x00\x00callbacksq\x13NX\x08\x00\x00\x00errbacksq\x14NX\t\x00\x00\x00timelimitq\x15NN\x86q\x16X\x07\x00\x00\x00tasksetq\x17NX\x05\x00\x00\x00chordq\x18Nu.' (497b)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/messaging.py", line 592, in _receive_callback
+    decoded = None if on_m else message.decode()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/message.py", line 142, in decode
+    self.content_encoding, accept=self.accept)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/serialization.py", line 174, in loads
+    raise self._for_untrusted_content(content_type, 'untrusted')
+kombu.exceptions.ContentDisallowed: Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
+[2021-04-06 09:03:15,766: CRITICAL/MainProcess] Can't decode message body: ContentDisallowed('Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)',) [type:'application/x-python-serialize' encoding:'binary' headers:{}]
+
+body: b'\x80\x02}q\x00(X\x04\x00\x00\x00taskq\x01X\x0f\x00\x00\x00send_email_taskq\x02X\x02\x00\x00\x00idq\x03X$\x00\x00\x0028784d45-e06b-47e7-9387-608b13150884q\x04X\x04\x00\x00\x00argsq\x05]q\x06X\x06\x00\x00\x00kwargsq\x07}q\x08(X\x02\x00\x00\x00toq\tX\x15\x00\x00\x00eric.kagai@huawei.comq\nX\x07\x00\x00\x00subjectq\x0bX(\x00\x00\x00Acknowledge Receipt of Compliance Reportq\x0cX\x07\x00\x00\x00messageq\rXZ\x00\x00\x00The Compliance report on Construction for period 2/2021 has been acknowledged successfullyq\x0euX\x07\x00\x00\x00retriesq\x0fK\x00X\x03\x00\x00\x00etaq\x10NX\x07\x00\x00\x00expiresq\x11NX\x03\x00\x00\x00utcq\x12\x88X\t\x00\x00\x00callbacksq\x13NX\x08\x00\x00\x00errbacksq\x14NX\t\x00\x00\x00timelimitq\x15NN\x86q\x16X\x07\x00\x00\x00tasksetq\x17NX\x05\x00\x00\x00chordq\x18Nu.' (469b)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/messaging.py", line 592, in _receive_callback
+    decoded = None if on_m else message.decode()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/message.py", line 142, in decode
+    self.content_encoding, accept=self.accept)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/serialization.py", line 174, in loads
+    raise self._for_untrusted_content(content_type, 'untrusted')
+kombu.exceptions.ContentDisallowed: Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
+[2021-04-06 09:03:15,766: CRITICAL/MainProcess] Can't decode message body: ContentDisallowed('Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)',) [type:'application/x-python-serialize' encoding:'binary' headers:{}]
+
+body: b'\x80\x02}q\x00(X\x04\x00\x00\x00taskq\x01X\x0f\x00\x00\x00send_email_taskq\x02X\x02\x00\x00\x00idq\x03X$\x00\x00\x00fafbc8c8-1402-4986-9624-267019942224q\x04X\x04\x00\x00\x00argsq\x05]q\x06X\x06\x00\x00\x00kwargsq\x07}q\x08(X\x02\x00\x00\x00toq\tX\x16\x00\x00\x00d.rossi@maltaurome.comq\nX\x07\x00\x00\x00subjectq\x0bX(\x00\x00\x00Acknowledge Receipt of Compliance Reportq\x0cX\x07\x00\x00\x00messageq\rXZ\x00\x00\x00The Compliance report on Construction for period 2/2021 has been acknowledged successfullyq\x0euX\x07\x00\x00\x00retriesq\x0fK\x00X\x03\x00\x00\x00etaq\x10NX\x07\x00\x00\x00expiresq\x11NX\x03\x00\x00\x00utcq\x12\x88X\t\x00\x00\x00callbacksq\x13NX\x08\x00\x00\x00errbacksq\x14NX\t\x00\x00\x00timelimitq\x15NN\x86q\x16X\x07\x00\x00\x00tasksetq\x17NX\x05\x00\x00\x00chordq\x18Nu.' (470b)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/messaging.py", line 592, in _receive_callback
+    decoded = None if on_m else message.decode()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/message.py", line 142, in decode
+    self.content_encoding, accept=self.accept)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/serialization.py", line 174, in loads
+    raise self._for_untrusted_content(content_type, 'untrusted')
+kombu.exceptions.ContentDisallowed: Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
+[2021-04-06 09:03:15,767: CRITICAL/MainProcess] Can't decode message body: ContentDisallowed('Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)',) [type:'application/x-python-serialize' encoding:'binary' headers:{}]
+
+body: b'\x80\x02}q\x00(X\x04\x00\x00\x00taskq\x01X\x0f\x00\x00\x00send_email_taskq\x02X\x02\x00\x00\x00idq\x03X$\x00\x00\x00e55a9143-d5ad-401a-9c9b-db5acf1176d1q\x04X\x04\x00\x00\x00argsq\x05]q\x06X\x06\x00\x00\x00kwargsq\x07}q\x08(X\x02\x00\x00\x00toq\tX\x16\x00\x00\x00d.rossi@maltaurome.comq\nX\x07\x00\x00\x00subjectq\x0bX#\x00\x00\x00Successful Submit Compliance Reportq\x0cX\x07\x00\x00\x00messageq\rX{\x00\x00\x00The Compliance report on Construction for period 3/2021 has been submitted successfully. Please wait for feedback from PPDCq\x0euX\x07\x00\x00\x00retriesq\x0fK\x00X\x03\x00\x00\x00etaq\x10NX\x07\x00\x00\x00expiresq\x11NX\x03\x00\x00\x00utcq\x12\x88X\t\x00\x00\x00callbacksq\x13NX\x08\x00\x00\x00errbacksq\x14NX\t\x00\x00\x00timelimitq\x15NN\x86q\x16X\x07\x00\x00\x00tasksetq\x17NX\x05\x00\x00\x00chordq\x18Nu.' (498b)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/messaging.py", line 592, in _receive_callback
+    decoded = None if on_m else message.decode()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/message.py", line 142, in decode
+    self.content_encoding, accept=self.accept)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/serialization.py", line 174, in loads
+    raise self._for_untrusted_content(content_type, 'untrusted')
+kombu.exceptions.ContentDisallowed: Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
+
+worker: Warm shutdown (MainProcess)
+ 
+ -------------- celery@compliance-server v3.1.26.post2 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-4.15.0-140-generic-x86_64-with-Ubuntu-18.04-bionic
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         ComplianceReporting:0x7fadd899e940
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ComplianceReporting.celery.debug_task
+  . adding_task
+  . myTask
+  . send_email_task
+  . send_mail_not
+  . send_reminder_email_task
+
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-04-06 15:18:55,704: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-04-06 15:18:55,713: INFO/MainProcess] mingle: searching for neighbors
+[2021-04-06 15:18:56,765: INFO/MainProcess] mingle: all alone
+[2021-04-06 15:18:56,774: WARNING/MainProcess] celery@compliance-server ready.
+
+worker: Warm shutdown (MainProcess)
+ 
+ -------------- celery@compliance-server v3.1.26.post2 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-4.15.0-140-generic-x86_64-with-Ubuntu-18.04-bionic
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         ComplianceReporting:0x7fde2924e978
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ComplianceReporting.celery.debug_task
+  . adding_task
+  . myTask
+  . send_email_task
+  . send_mail_not
+  . send_reminder_email_task
+
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-04-07 13:36:02,176: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-04-07 13:36:02,185: INFO/MainProcess] mingle: searching for neighbors
+[2021-04-07 13:36:03,221: INFO/MainProcess] mingle: all alone
+[2021-04-07 13:36:03,231: WARNING/MainProcess] celery@compliance-server ready.
+[2021-04-09 14:23:26,966: CRITICAL/MainProcess] Can't decode message body: ContentDisallowed('Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)',) [type:'application/x-python-serialize' encoding:'binary' headers:{}]
+
+body: b'\x80\x02}q\x00(X\x04\x00\x00\x00taskq\x01X\x0f\x00\x00\x00send_email_taskq\x02X\x02\x00\x00\x00idq\x03X$\x00\x00\x000ebde9ee-03e2-47e8-b916-cc53b30a30dbq\x04X\x04\x00\x00\x00argsq\x05]q\x06X\x06\x00\x00\x00kwargsq\x07}q\x08(X\x02\x00\x00\x00toq\tX%\x00\x00\x00gmprojects@parklaneconstruction.co.keq\nX\x07\x00\x00\x00subjectq\x0bX#\x00\x00\x00Successful Submit Compliance Reportq\x0cX\x07\x00\x00\x00messageq\rX{\x00\x00\x00The Compliance report on Construction for period 3/2021 has been submitted successfully. Please wait for feedback from PPDCq\x0euX\x07\x00\x00\x00retriesq\x0fK\x00X\x03\x00\x00\x00etaq\x10NX\x07\x00\x00\x00expiresq\x11NX\x03\x00\x00\x00utcq\x12\x88X\t\x00\x00\x00callbacksq\x13NX\x08\x00\x00\x00errbacksq\x14NX\t\x00\x00\x00timelimitq\x15NN\x86q\x16X\x07\x00\x00\x00tasksetq\x17NX\x05\x00\x00\x00chordq\x18Nu.' (513b)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/messaging.py", line 592, in _receive_callback
+    decoded = None if on_m else message.decode()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/message.py", line 142, in decode
+    self.content_encoding, accept=self.accept)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/serialization.py", line 174, in loads
+    raise self._for_untrusted_content(content_type, 'untrusted')
+kombu.exceptions.ContentDisallowed: Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
+[2021-04-10 15:36:02,541: CRITICAL/MainProcess] Can't decode message body: ContentDisallowed('Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)',) [type:'application/x-python-serialize' encoding:'binary' headers:{}]
+
+body: b'\x80\x02}q\x00(X\x04\x00\x00\x00taskq\x01X\x0f\x00\x00\x00send_email_taskq\x02X\x02\x00\x00\x00idq\x03X$\x00\x00\x009968b803-13cf-4a21-95a6-c7f51c106bb2q\x04X\x04\x00\x00\x00argsq\x05]q\x06X\x06\x00\x00\x00kwargsq\x07}q\x08(X\x02\x00\x00\x00toq\tX\x15\x00\x00\x00eric.kagai@huawei.comq\nX\x07\x00\x00\x00subjectq\x0bX#\x00\x00\x00Successful Submit Compliance Reportq\x0cX\x07\x00\x00\x00messageq\rX{\x00\x00\x00The Compliance report on Construction for period 3/2021 has been submitted successfully. Please wait for feedback from PPDCq\x0euX\x07\x00\x00\x00retriesq\x0fK\x00X\x03\x00\x00\x00etaq\x10NX\x07\x00\x00\x00expiresq\x11NX\x03\x00\x00\x00utcq\x12\x88X\t\x00\x00\x00callbacksq\x13NX\x08\x00\x00\x00errbacksq\x14NX\t\x00\x00\x00timelimitq\x15NN\x86q\x16X\x07\x00\x00\x00tasksetq\x17NX\x05\x00\x00\x00chordq\x18Nu.' (497b)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/messaging.py", line 592, in _receive_callback
+    decoded = None if on_m else message.decode()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/message.py", line 142, in decode
+    self.content_encoding, accept=self.accept)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/serialization.py", line 174, in loads
+    raise self._for_untrusted_content(content_type, 'untrusted')
+kombu.exceptions.ContentDisallowed: Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
+[2021-04-10 18:44:25,016: CRITICAL/MainProcess] Can't decode message body: ContentDisallowed('Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)',) [type:'application/x-python-serialize' encoding:'binary' headers:{}]
+
+body: b'\x80\x02}q\x00(X\x04\x00\x00\x00taskq\x01X\x0f\x00\x00\x00send_email_taskq\x02X\x02\x00\x00\x00idq\x03X$\x00\x00\x000e448482-58b6-48fe-97b5-e880987ffccdq\x04X\x04\x00\x00\x00argsq\x05]q\x06X\x06\x00\x00\x00kwargsq\x07}q\x08(X\x02\x00\x00\x00toq\tX\x0f\x00\x00\x00kptep@cacgk.comq\nX\x07\x00\x00\x00subjectq\x0bX#\x00\x00\x00Successful Submit Compliance Reportq\x0cX\x07\x00\x00\x00messageq\rX{\x00\x00\x00The Compliance report on Construction for period 3/2021 has been submitted successfully. Please wait for feedback from PPDCq\x0euX\x07\x00\x00\x00retriesq\x0fK\x00X\x03\x00\x00\x00etaq\x10NX\x07\x00\x00\x00expiresq\x11NX\x03\x00\x00\x00utcq\x12\x88X\t\x00\x00\x00callbacksq\x13NX\x08\x00\x00\x00errbacksq\x14NX\t\x00\x00\x00timelimitq\x15NN\x86q\x16X\x07\x00\x00\x00tasksetq\x17NX\x05\x00\x00\x00chordq\x18Nu.' (491b)
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/messaging.py", line 592, in _receive_callback
+    decoded = None if on_m else message.decode()
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/message.py", line 142, in decode
+    self.content_encoding, accept=self.accept)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/serialization.py", line 174, in loads
+    raise self._for_untrusted_content(content_type, 'untrusted')
+kombu.exceptions.ContentDisallowed: Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-04-20 10:27:44,019: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-04-20 10:27:44,045: INFO/MainProcess] mingle: searching for neighbors
+[2021-04-20 10:27:45,097: INFO/MainProcess] mingle: all alone
+[2021-04-20 10:27:45,114: WARNING/MainProcess] celery@compliance-server ready.
+
+worker: Warm shutdown (MainProcess)
+ 
+ -------------- celery@compliance-server v3.1.26.post2 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-4.15.0-142-generic-x86_64-with-Ubuntu-18.04-bionic
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         ComplianceReporting:0x7f83e13a7940
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 2 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ComplianceReporting.celery.debug_task
+  . adding_task
+  . myTask
+  . send_email_task
+  . send_mail_not
+  . send_reminder_email_task
+
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-04-30 13:15:40,769: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-04-30 13:15:40,794: INFO/MainProcess] mingle: searching for neighbors
+[2021-04-30 13:15:41,846: INFO/MainProcess] mingle: all alone
+[2021-04-30 13:15:41,867: WARNING/MainProcess] celery@compliance-server ready.
+
+worker: Warm shutdown (MainProcess)
+ 
+ -------------- celery@compliance-server v3.1.26.post2 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-4.15.0-142-generic-x86_64-with-Ubuntu-18.04-bionic
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         ComplianceReporting:0x7f6af529b940
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 2 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ComplianceReporting.celery.debug_task
+  . adding_task
+  . myTask
+  . send_email_task
+  . send_mail_not
+  . send_reminder_email_task
+
+/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/platforms.py:812: RuntimeWarning: You are running the worker with superuser privileges, which is
+absolutely not recommended!
+
+Please specify a different user using the -u option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  uid=uid, euid=euid, gid=gid, egid=egid,
+[2021-05-05 15:38:14,087: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds...
+
+[2021-05-05 15:38:16,098: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-05-05 15:38:16,116: INFO/MainProcess] mingle: searching for neighbors
+[2021-05-05 15:38:17,165: INFO/MainProcess] mingle: all alone
+[2021-05-05 15:38:17,187: WARNING/MainProcess] celery@compliance-server ready.
+[2021-06-25 09:57:16,394: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 280, in start
+    blueprint.start(self)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/bootsteps.py", line 123, in start
+    step.start(parent)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/consumer.py", line 884, in start
+    c.loop(*c.loop_args())
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/celery/worker/loops.py", line 76, in asynloop
+    next(loop)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/async/hub.py", line 340, in create_loop
+    cb(*cbargs)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/base.py", line 164, in on_readable
+    reader(loop)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/kombu/transport/base.py", line 146, in _read
+    drain_events(timeout=0)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/amqp/connection.py", line 324, in drain_events
+    return amqp_method(channel, args)
+  File "/home/nkarimi/ComplianceReporting/venv/lib/python3.6/site-packages/amqp/connection.py", line 530, in _close
+    (class_id, method_id), ConnectionError)
+amqp.exceptions.ConnectionForced: (0, 0): (320) CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'
+[2021-06-25 09:57:16,627: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds...
+
+[2021-06-25 09:57:18,643: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds...
+
+[2021-06-25 09:57:22,658: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-06-25 09:57:22,668: INFO/MainProcess] mingle: searching for neighbors
+[2021-06-25 09:57:23,704: INFO/MainProcess] mingle: all alone

@@ -1,0 +1,3868 @@
+[
+  {
+    "organization_name": "KoTDA ",
+    "notes": "Construction Compliance report form for KoTDA ",
+    "type": "Construction",
+    "is_active": "True",
+    "module": [
+      {
+        "name": "QUALITY ASSURANCE",
+        "type": "Quality Assurance",
+        "notes": " ",
+        "reference": [
+          {
+            "reference": "KOTDA/CC/QA/01",
+            "parameter": "EXCAVATION",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "APPROVED PARCEL BOUNDARY",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Site handover documentations",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "APPROVED EXCAVATION DEPTH",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Supervising consultants approvals",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+
+          {
+            "reference": "KOTDA/CC/QA/02",
+            "parameter": "CONSTRUCTION RAW MATERIAL",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "APPROVED CONSTRUCTION RAW MATERIAL(Water, Aggregates, Sand, Steel, service pipes, ducts)",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide a log for each material and its approval of source(quarry, factory, others) and or example",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+
+          {
+            "reference": "KOTDA/CC/QA/03",
+            "parameter": "BACKFILLING",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "APPROVED / BACKFILL LAYERS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval for all backfill areas",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "APPROVED BOTTOM & TOP LAYER(S)",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval for each layer",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+
+          {
+            "reference": "KOTDA/CC/QA/04",
+            "parameter": "CUBE TEST RESULTS",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "APPROVED LABORATORY TEST",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval document",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "SEVEN DAYS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval document",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "FORTEEN DAYS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval document",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "TWENTY-ONE DAYS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval document",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "TWENTY-EIGHT DAYS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval document",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "OTHER DESIGN PERIOD",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval document",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/QA/05",
+            "parameter": "CONCRETE CASTING",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "LAID SERVICE DUCTS (Electrical/ mechanical/ICT/firefighting/ others)",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approvals for each type of service with its own approval for each section of the project",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "LAID REINFORCEMENT STEEL",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approvals for laying (spacing etc), joining (tie and extension points etc) for each section of the project.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "APPROVED CAST CONCRETE (Precast and Insitu)",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approvals for each element with cast concrete (Foundations, walls, slabs, others)",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/QA/06",
+            "parameter": "EQUIPMENT/ MACHINERY",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "FACTORY TESTS CERTIFICATES",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Approved factory test certificate by the supervising consultant",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "TESTING & COMMISSIONING",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Test and commissioning reports.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "Request For Information (RFI)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "Material Approval (MA)",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "TEST RESULT",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          }
+        ]
+
+      },
+      {
+        "name": "ENVIRONMENTAL MANAGEMENT",
+        "type": "Environmental Management",
+        "notes": " ",
+        "reference": [
+          {
+            "reference": "KOTDA/CC/EM/01",
+            "parameter": "GREEN CERTIFICATION",
+            "notes": "To include design and post construction certification",
+            "requirements": [
+              {
+                "requirement_name": "Certification Application",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Certification application and conditions",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Credits applied for",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Indicate and give details in the detailed documents",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Construction data requirements",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Indicate the type of data being collected and maintained",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/EM/02",
+            "parameter": "SOCIAL AND ENVIRONMENTAL IMPACT ASSESSMENT",
+            "notes": "To include design and post construction certification",
+            "requirements": [
+              {
+                "requirement_name": "NEMA Certificate",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Indicate and attach the certificate in the detailed report",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "NEMA Reports",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Attach NEMA acknowledgement of the reports",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/EM/03",
+            "parameter": "SOLID WASTE MANAGEMENT PLAN",
+            "notes": "To include design and post construction certification",
+            "requirements": [
+              {
+                "requirement_name": "Waste generation",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Quantity generated.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Waste Segregation",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Number of fractions separated",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Waste transportation",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Means and mode of transportation / quantity",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Waste disposal",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Disposal of each waste type",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Waste recycling",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Recycling methodology",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/EM/04",
+            "parameter": "EFFLUENT/WASTEWATER MANAGEMENT",
+            "notes": "To include design and post construction certification",
+            "requirements": [
+              {
+                "requirement_name": "Wastewater collection method",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Facility (Septic, biodigester, other).",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Wastewater collection point",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Indicate the number of collection points",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Wastewater management",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Collection points emptying frequency",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Wastewater discharge",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Discharge points (offsite or onsite) and its approval",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Storm water management",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Report on Management during construction",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/EM/05",
+            "parameter": "BIODIVERSITY MANAGEMENT",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Biodiversity management",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Report on management activities",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Vegetation restoration",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Activities done and their approval",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/EM/06",
+            "parameter": "POLLUTION CONTROL AND MANAGEMENT",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Hazardous waste, management",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Anticipated generation / disposal approval",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Air pollution through emissions",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Anticipated generation / disposal approval",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Noise pollution through sounds(machinery,Human.Other)",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Indicate any anticipated generation and its control",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          }
+        ]
+
+      },
+      {
+        "name": "TRAFFIC MANAGEMENT",
+        "type": "Traffic Management",
+        "notes": " ",
+        "reference": [
+          {
+            "reference": "KOTDA/CC/TM/01",
+            "parameter": "TRANSPORT ROUTES",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Approved material transportation route",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Layout from Konza Technopolis  border gate(s), to the project site",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Approved staff transportation routes",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "From and or to Konza Technopolis border gate(s), labour camp, project site ",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/TM/02",
+            "parameter": "PEDESTRIANS",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Staff Transportation vehicles",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Indicate the number and provide type details.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Staff identification",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Staff details (Names, age, gender, ethnicity, other)",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/COC/TM/03",
+            "parameter": "TRAFFIC CONTROL STAFF",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Traffic marshals",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "A list with location areas",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Training Certificates",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Certificates (safety, signaling e.t.c)",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/TM/04",
+            "parameter": "TRAFFIC FLOW",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "No obstruction",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Indicate any obstruction caused by your vehicle or staff and provide details",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Safe project site access roads",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Approvals of the constructed access road to the site",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/TM/05",
+            "parameter": "PARKING",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Approved parking site",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Approved layout plans",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/TM/06",
+            "parameter": "BREAKDOWN",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "No immobile/ brocken down machinery/ vehicles",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "List of all machinery or vehicles that broke down at site and report on how they were moved away",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/TM/07",
+            "parameter": "CONSTRUCTION MATERIAL",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Approved sites for material storage",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Approval for stockpiling construction material (the site, storage method, other)",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Safe material storage",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Approval for stored materials (they cannot fall and injure somebody)",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          }
+        ]
+
+      },
+      {
+        "name": "HEALTH AND SAFETY",
+        "type": "Health and Safety",
+        "notes": " ",
+        "reference": [
+          {
+            "reference": "KOTDA/CC/HS/01",
+            "parameter": "PERSONNEL PROTECTIVE EQUIPMENT",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Head protection",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval of the PPE by the supervising consultants",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Eye protection",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval of the PPE by the supervising consultants",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Mouth/nose protection",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval of the PPE by the supervising consultants",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Hand protection",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval of the PPE by the supervising consultants",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Feet protection",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval of the PPE by the supervising consultants",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Body protection",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval of the PPE by the supervising consultants",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Specialised protection",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide approval of the PPE by the supervising consultants",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/HS/02",
+            "parameter": "EMPLOYEE INDUCTIONS AND TRAINING",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Induction certificates",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide individual certificates and or group certificates",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Training certificates",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide individual certificates and or group certificates",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/HS/03",
+            "parameter": "TOOLBOX TALKS",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Daily attendance register",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide Register (scanned or bio metric)",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/CC/HS/04",
+            "parameter": "RECORDS OF INCIDENTS",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "NEAR MISS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide a report on how, where, when the incident happened, and the action taken. The report to cover each incident.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "FIRST AID",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide a report on how, where, when the incident happened, and the action taken. The report to cover each incident.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "MEDICAL TREATMENT",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide a report on how, where, when the incident happened, and the action taken. The report to cover each incident.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "HARRASSMENT",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide a report on how, where, when the incident happened, and the action taken. The report to cover each incident.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          }
+
+        ]
+
+      },
+
+      {
+        "name": "SECURITY MANAGEMENT",
+        "type": "Security Management",
+        "notes": " ",
+        "reference": [
+          {
+            "reference": "KOTDA/CC/SM/01",
+            "parameter": "SITE ACCESS CONTROL",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Biometric access control system",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Access control data availability (In future, the biometric access control will link to KoTDA IOC)",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/SM/02",
+            "parameter": "BOUNDARY SECURITY",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Clear view border demarcation",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Approved drawings",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              },
+              {
+                "requirement_name": "Manned boundary perimeter",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "report on boundary security / incidences.",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+            ]
+
+          },
+          {
+            "reference": "KOTDA/SM/03",
+            "parameter": "SECURITY FORCE",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Registered private security company",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Security company licences",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/SM/04",
+            "parameter": "SECURITY ENFORCEMENT/FIREARMS",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "Collaboration with GOK police at site (Use of force and or firearm is not allowed)",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Report on incident(s) that required use of force and or firearm and GOK policemen involvement",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/SM/05",
+            "parameter": "TRAINING",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "TRAINING CERTIFICATES",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide group or individual training certificates",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/SM/07",
+            "parameter": "COLLABORATION WITH GOK POLICE",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "MEETINGS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Provide attendance register",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/SM/08",
+            "parameter": "INCIDENT(S)",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "REPORTS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Observed incidents and action taken",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/SM/09",
+            "parameter": "COMPLAINTS & GRIEVANCE",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "REPORTS",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Grievance and or complaint and how it was handled",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          },
+          {
+            "reference": "KOTDA/SM/10",
+            "parameter": "TERRORIST ATTACKS",
+            "notes": " ",
+            "requirements": [
+              {
+                "requirement_name": "OCCURRENCE ASSEMENT",
+                "notes": " ",
+                "attachments": [
+                  {
+                    "document_name": "Assessment reports",
+                    "notes": " "
+                  }
+                ],
+                "metrics": [
+                  {
+                    "metric_type": "TYPE",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "QUANTITY",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "DISPOSAL",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "EXPECTED TEST RESULTS",
+                    "input_type": "text",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  },
+                  {
+                    "metric_type": "NUMBER OF NON-APPROVALS",
+                    "input_type": "int",
+                    "is_required": true,
+                    "notes": " "
+                  }
+                ]
+              }
+
+            ]
+
+          }
+        ]
+
+      }
+    ],
+    "personnel_designation": [
+      {
+        "type": 1,
+        "designation_name": "Lead consultant or project manager"
+      },
+      {
+        "type": 1,
+        "designation_name": "Lead Architect"
+      },
+      {
+        "type": 1,
+        "designation_name": "Lead Landscape Architect"
+      },
+      {
+        "type": 1,
+        "designation_name": "Lead Structural Engineer"
+      },
+      {
+        "type": 1,
+        "designation_name": "Lead Civil Engineer"
+      },
+      {
+        "type": 1,
+        "designation_name": "Lead Mechanical Engineer"
+      },
+      {
+        "type": 1,
+        "designation_name": "Lead Electrical Engineer"
+      },
+      {
+        "type": 1,
+        "designation_name": "Lead ICT Engineer"
+      },
+      {
+        "type": 1,
+        "designation_name": "Lead Green Expert"
+      },
+      {
+        "type": 1,
+        "designation_name": "Clerk of Works"
+      },
+
+
+      {
+        "type": 2,
+        "designation_name": "Construction Manager."
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ building works"
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ landscape works"
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ structural works"
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ civil works"
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ mechanical works"
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ electrical works"
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ ICT works"
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ Health and safety"
+      },
+      {
+        "type": 2,
+        "designation_name": "Site agent _ green certification"
+      },
+      {
+        "type": 2,
+        "designation_name": "Community liaison officer."
+      }
+    ]
+  }
+
+]

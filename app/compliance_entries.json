@@ -1,0 +1,20 @@
+{
+  "project_name": "dummy project",
+  "summary": " ",
+  "status": "draft",
+  "personnel": [
+    {
+      "first_name": "Michael",
+      "other_name": "Olunga",
+      "email": "olunga@gor.go.ke",
+      "tel_number": "0745782367"
+    }
+
+  ],
+  "metric_submission": [
+    {
+      "notes": "Gikone to Sulwe koro gowo! Sani chapa mag bugni ma ondik gi dho Ngere, Oswayo kod dhowa, Dholuo, yudore Kenya ka. Sigand Sulwe owuok kuom ngimana kaka nyathi. Ageno ni kuku sigana ni biro landore e piny ngima to moloyo ne jo-Kenya. Amor sidang' ni Sulwe ochopo dala! 🇰🇪"
+    }
+  ]
+
+}

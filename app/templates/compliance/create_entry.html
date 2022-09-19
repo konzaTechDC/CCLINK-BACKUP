@@ -1,0 +1,811 @@
+﻿ {% extends 'compliance/layout.html' %}
+{% block styles %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %} 
+
+   {% load static %}
+{% block content %}
+{% load datetime_tags %}
+{% load model_tags %}
+
+    <div class="right_col" role="main">
+
+          <div class="">
+
+            <div class="page-title">
+              <div class="title_left">
+                  {% get_form_date as date %}
+                <h3 class="text-info">{{ entry.project_name }} Compliance report on {{ record.type }} <small>for {{entry.get_month}}/{{entry.year}}</small></h3>
+              </div>
+
+              <div class="title_right">
+                <!--search goes here-->
+              </div>
+            </div>
+
+              {% get_relationship entry as relationship %}
+              {% if relationship is not None %}
+              {% if relationship.parent.review %}
+              <div class="clearfix"></div>
+
+              <div class="alert alert-warning alert-dismissible " role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <strong>Note previous comments!</strong> {{ relationship.parent.review | safe }}
+               </div>
+              {% endif %}
+              {% endif %}
+
+              {% if entry.review %}
+              <div class="clearfix"></div>
+
+              <div class="alert alert-info alert-dismissible " role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <strong>Note comments</strong> {{ entry.review|safe }}
+               </div>
+              {% endif %}
+            <div class="clearfix"></div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2 class="text-info">Compliance report on {{ record.type }}<small>for {{entry.get_month}}/{{entry.year}}</small></h2>
+                      <div class="btn pull-right">
+                          {% if entry.status == 'draft' %}
+                          <a class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg_{{ entry.id }}">Submit Report</a>
+                          {% elif  entry.status == 'rejected' %}
+                          <a class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg_{{ entry.id }}">Resubmit Report</a>
+                          {% elif entry.status == 'pending' %}
+                          <a class="btn btn-success" data-toggle="" data-target=".bs-example-modal-lg_{{ entry.id }}">Submitted</a>
+                          {% endif %}
+                      </div>
+                    <ul class="nav navbar-right panel_toolbox">
+                      
+                      
+                      
+                    </ul>
+
+                       <!-- Small modal -->
+
+                        <div class="modal fade bs-example-modal-lg_{{ entry.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel2">Submit report for period {{ entry.get_month }}/{{ entry.year }}</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                                <form action="{% url 'submit_report_entry' %}" method="post">
+                                    {% csrf_token %}
+                                <div class="modal-body">
+                                                                                
+                                    {% load noncompliance %}
+
+                                    {% get_pending_requirements entry as pending_submissions %}
+
+                                    <div class="form-group row">
+									<h4 class="warning">Submit Report</h4>
+                                        <!--check if account is blocked-->
+                                        {% if request.user.contractorprofile.is_blocked == True%}
+                                        <div class="col-md-12">
+                                            <h4 class="alert-danger"><u>BLOCKED ACCOUNT</u></h4>
+                                        <p><strong>{{ request.user.contractorprofile.block_reason | safe }}</strong></p>
+                                        </div>
+                                        {% else %}
+                                        <!--check if the date is correct -->
+                                        {% is_submission_period as date_check %}
+                                        {% if date_check == True or request.user.is_admin or entry.compliance_record.submission_enabled == True %}
+								        <div class="col-md-9 col-sm-9 ">
+                                            {% if pending_submissions is not None %}
+                                            <p><strong>Please fill in the following requirements before submitting form. <span>HINT: you can input N/A instead of leaving a field blank.</span></strong></p>
+                                                         
+										            <div class="list" style="overflow:scroll; width:300px; height:400px;">
+                                                        {% for submission in pending_submissions %}
+											            <p class=" text-danger" >
+												            <a class="btn btn-danger" href="{% url 'compliance_requirement_view' entry.id record.id submission.metric.requirement.reference.id submission.metric.requirement.id   %}"> <strong>{{ submission.metric.requirement.requirement_name }} {{ submission.metric.metric_type }} is EMPTY!</strong></a>
+											            </p>
+                                                        {% endfor %}
+										            </div>
+                                                
+											{% else %}
+                                                <div class="form-group">
+                                                    <label>Summary</label>
+                                                
+                                                    <textarea class="form-control" name="summary">{{ entry.summary }}</textarea>
+                                                    <span class="text-info" >NB: Provide a write up elaborating on measures taken/ to be taken on any area whose approval was not given</span>
+                                                </div>
+                                                <div class="checkbox">
+											        <label>
+												        <input type="checkbox" required name="is_acknowledged" value="0" class="flat">
+                                                        <strong>I have verified that the information is correct and fairly reflects the quality of the applicant to the best of my knowledge. I hereby give KoTDA permission to use this information to assess the report.</strong>
+											        </label>
+										        </div>
+                                            {% endif %}
+										</div>
+                                        {% else %}
+                                        <p>Compliance forms are not available at the moment. Please check between the 1st and 10th of the month.
+                                        If the problem persists, contact KoTDA ICT Support for help</p>
+                                        {% endif %}
+                                        {% endif %}
+
+                                        
+                           
+									</div>
+                                    
+                                    <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                                    <input type="hidden" name="personnel_id" value="{{ record.id }}" />
+                            
+                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                {% if pending_submissions is None %}
+                                    <button {% if request.user.contractorprofile.is_blocked == False %} type="submit" class="btn btn-primary" {% else %} class="btn btn-secondary" {% endif %} >Submit Report</button>
+                                {% endif %}
+                            </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        </div>
+                    <!-- /modals -->
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+
+                    <div class="row">
+                      <div class="col-sm-3 mail_list_column">
+                        <h5 class="green"><strong>References</strong></h5><hr />
+
+                        <select onChange="window.location.href=this.value" id='selUser' class="form-control" style='width: 200px;'>
+                            <option value="">Select Parameter</option>
+                            <option value="{% url 'compliance_personnel_select' entry.id record.id %}">Personnel</option>
+                            {% for module in record.get_compliance_modules %}
+                            {% for reference_obj in module.get_compliance_references %}
+                                <option value='{% url 'compliance_reference_select' entry.id record.id reference_obj.id %}'>{{ reference_obj.parameter }} - {{ reference_obj.reference }}</option>
+                            {% endfor %}
+                            {% endfor %}
+                             
+                        </select>
+
+                          <hr /><br />
+                          {% if personnel %}
+                          <h5 class="green"><strong>Designation</strong></h5><hr />
+                            {% for person_obj in personnel %}
+                                <a href="{% url 'compliance_personnel_view' entry.id record.id person_obj.id %}">
+                                  <div class="mail_list">
+                                    <div class="left">
+                                      
+                                    </div>
+                                    <div class="right">
+                                      <h3 {% if person.id == person_obj.id %}class="bg-green"{% endif %}>{{ person_obj.designation.designation_name }}<small></small></h3>
+                                      <!-- <p>{{ person_obj.designation.type }}</p> -->
+                                    </div>
+                                  </div>
+                                </a>
+                            {% endfor %}
+                                <!--add personnel button-->
+                              <div class="btn pull-right">
+                                  <span>Can't find designation?</span>
+                                  <a class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-md_personnel">Add Extra Personnel</a>
+                              </div>
+
+                                <!-- Small modal -->
+
+                                <div class="modal fade bs-example-modal-md_personnel" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel2">Add new personnel designation to report</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                        <form method="post" enctype="multipart/form-data" action="{% url 'create_extra_personnel'%}" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                {% csrf_token %}
+                                            <div class="modal-body">
+                                            
+                                                <div class="form-group row">
+									            <h4>Add extra personnel</h4>
+                    
+										        <div class="item form-group">
+											        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name 
+											        </label>
+											        <div class="col-md-6 col-sm-6 ">
+												        <input type="text" id="first_name" required name="first_name" value="" class="form-control ">
+											        </div>
+										        </div>
+										        <div class="item form-group">
+											        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Other Name 
+											        </label>
+											        <div class="col-md-6 col-sm-6 ">
+												        <input type="text" id="other-name" required name="other_name" value="" class="form-control">
+											        </div>
+										        </div>
+										        <div class="item form-group">
+											        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
+											        <div class="col-md-6 col-sm-6 ">
+												        <input id="person_email" value="" required class="form-control" type="email" name="email">
+											        </div>
+										        </div>
+                                                <div class="item form-group">
+											        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Telephone number</label>
+											        <div class="col-md-6 col-sm-6 ">
+												        <input id="tel_number" value="" required class="form-control" type="tel" name="tel_number">
+											        </div>
+										        </div>
+                                                {% load form_tags %}
+                                                {% get_personnel_designation_form as designation_form %}
+                                                <div class="item form-group">
+											        <label class="col-form-label col-md-3 col-sm-3 label-align" for="designation_name">Designation name 
+											        </label>
+											        <div class="col-md-6 col-sm-6 ">
+												        {{ designation_form.designation_name }}
+											        </div>
+										        </div>
+                                                    
+                                                <div class="item form-group">
+											        <label class="col-form-label col-md-3 col-sm-3 label-align" for="designation_type">Designation Type
+											        </label>
+											        <div class="col-md-6 col-sm-6 ">
+												        {{ designation_form.type }}
+											        </div>
+										        </div>
+                                                    <div class="row" >
+                                                        <br />
+                                                    <hr />
+                                                    
+                                                    </div>
+                                                <!--attachment form start-->
+                                                
+                                                <!--
+                                                    <h2><strong>Attachments</strong></h2>
+                                                <div class="item form-group">
+											        <label class="col-form-label col-md-3 col-sm-3 label-align" for="designation_type">Document Type
+											        </label>
+											        <div class="col-md-6 col-sm-6 ">
+												        {{ personnel_document_form.type }}
+											        </div>
+										        </div>
+                                                <div class="form-group" id="attachment-container">
+		                                            <div class="form-group">
+                                                        <label for="id_username" class="col-md-2 control-label">Detailed Document Requirement</label>
+                                                        <div class="col-md-10">
+                                                            {{ personnel_document_form.attachment }}
+                                                        </div>
+                                                    </div>
+	                                            </div>
+                                                <div class="item form-group">
+											        <label class="col-form-label col-md-3 col-sm-3 label-align" for="designation_type">Document Description
+											        </label>
+											        <div class="col-md-6 col-sm-6 ">
+												        {{ personnel_document_form.description }}
+											        </div>
+										        </div>
+                                                 -->
+                                                
+                                                <!--attachment form end-->
+										        
+										        
+										        <div class="ln_solid"></div>
+										        
+                           
+									        </div>
+                                    
+                                            <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                                            
+                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                </div>
+                            <!-- /modals -->
+                          {% endif %}
+                          <!-- personnel designation listing start -->
+
+
+                          <!-- selected reference -->
+                        {% if reference %}
+                                <h5 class="green"><strong>Requirements</strong></h5><hr />
+                          {% for requirement_obj in reference.get_reference_requirements %}
+                                <a href="{% url 'compliance_requirement_view' entry.id record.id reference.id requirement_obj.id %}">
+                                    <div class="mail_list">
+                                        
+                                    <div class="right">
+                                        <h3 {% if requirement_obj.id == requirement.id %}class="bg-green"{% endif %}>{{ requirement_obj.requirement_name }}</h3>
+                                        <p>{{ requirement_obj.notes }}</p>
+                                    </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        
+                        {% endif %}
+                          
+                          <!--pesonnel button start-->
+                          <!--
+                        <a href="{% url 'compliance_personnel_select' entry.id record.id %}" id="compliance_personnel_select">
+                          <div class="mail_list">
+                            <div class="left">
+                            </div>
+                            <div class="right">
+                              <h3>Personnel <small></small></h3>
+                            </div>
+                          </div>
+                        </a>
+                          <!--pesonnel button end-->
+                          <!--
+                          {% for module in record.get_compliance_modules %}
+                            {% for reference_obj in module.get_compliance_references %}
+                                <a href="{% url 'compliance_reference_select' entry.id record.id reference_obj.id %}" id="compliance_reference_select">
+                                  <div class="mail_list">
+                                    
+                                    <div class="right {% if reference.id == reference_obj.id %} bg-green{% else %} bg-light{% endif %}">
+                                      <h3 >{{ reference_obj.parameter }} - <strong>{{ reference_obj.reference }}</strong></h3>
+                                      <p>{{ reference_obj.notes }}</p>
+                                    </div>
+                                  </div>
+                                </a>
+                            {% endfor %}
+                          {% endfor %}
+                          -->
+                        
+                        
+                      </div>
+                      <!-- /MAIL LIST -->
+
+                      <!-- CONTENT MAIL -->
+
+                        <!-- /CONTENT MAIL -->
+
+                      <!--test section-->
+                      <div class="col-sm-9 mail_view">
+                        <div class="inbox-body">
+                          <div class="mail_heading row">
+                            <div class="col-md-8">
+                              
+                            </div>
+                            
+                            
+                          </div>
+                          
+                          <div class="view-mail">
+
+                              {% if requirement == Null and personnel == Null %}
+                                <div>
+                                    <p class="text-info">Click on a requirement / personnel designation on the left side to reveal form</p>
+                                </div>
+                              {% endif %}
+                              <!-- requirements metric form start -->
+                              {% if requirement %}
+                                {% if requirement.get_metrics %}
+
+                              	            <div class="col-sm-12 col-sm-12 ">
+							                    <div class="x_panel">
+								                    <div class="x_title">
+									                    <h2 class="text-primary">{{ requirement.requirement_name }} <small>{{ requirement.reference.reference }}</small></h2>
+                                                        <div class="col-md-4 text-right">
+                                                          <p class="date"> Last updated: {{ entry.updated_at }}</p>
+                                                            {% if requirement.reference.notes %}
+                                                            <span>{{ requirement.reference.notes }}</span>
+                                                            {% endif %}
+                                                        </div>
+									                    
+
+									                    <div class="clearfix"></div>
+								                    </div>
+								                    <div class="x_content">
+									                    <br />
+									                    <form method="post" enctype="multipart/form-data" action="{% url 'update_compliance_entry'%}" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                            {% csrf_token %}
+
+                                                            <!--get previous reviews for this requirement start-->
+                                                            
+                                                            {% get_relationship entry as relationship %}
+                                                            {% if relationship is not None %}
+                                                            {% get_requirement_issue relationship.parent requirement as issue %}
+                                                            {% if issue is not None %}
+                                                                <h4>Note previous reviews below and elaborate on measures taken/ to be taken on any area whose approval was not given.</h4>
+                                                                <p class="text-danger">{{ issue.notes }}</p><br /><hr />
+                                                            {% endif %}
+                                                            {% endif %}
+                                                            <!--get previous reviews for this requirement end -->
+
+                                                            {% with count=0 %}
+                                                            {% for metric in requirement.get_metrics %}
+                                            
+                                                                
+                                                                <div class="item form-group">
+											                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="metric_type">{{metric.metric_type}} 
+											                        </label>
+											                        <div class="col-md-6 col-sm-6 ">
+                                                                        
+                                                                        {% for submission in metric.get_submissions %}
+                                            
+                                                                            {% if metric == submission.metric and entry == submission.record_entry %}
+                                                                                    {% if metric.input_type == 'text' %}
+                                                                                        
+                                                                                        <div>
+                                                                                            <textarea id="summernote_{{ metric.id }}" class="form-control" {% if metric.is_required %} required {% endif %} name="notes[{{ forloop.parentloop.counter0 }}]">{% if submission.notes is not None %}{{submission.notes}}{% endif %}</textarea>
+                                                                                        </div>
+                                                                                        <script>
+                                                                                              $('#summernote_{{ metric.id }}').summernote({
+                                                                                                tabsize: 2,
+                                                                                                height: 100,
+                                                                                                width: 500,
+                                                                                                minHeight: null,             // set minimum height of editor
+                                                                                                maxHeight: null,             // set maximum height of editor
+                                                                                                focus: true                  // set focus to editable area after initializin
+                                                                                              });
+                                                                                        </script>
+                                                                                    {% elif metric.input_type == 'int' %}
+                                                                                        <input class="form-control" {% if metric.is_required %} required {% endif %} type="number" min="0" step="1" name="notes[{{ forloop.parentloop.counter0 }}]" value="{{submission.notes}}" />
+                                                                                    {% endif %}
+                                                                                
+                                                                                <input type="hidden" name="submission_id[{{ forloop.parentloop.counter0 }}]" value="{{ submission.id }}" />
+                                                                                <input type="hidden" name="metric_id[{{ forloop.parentloop.counter0 }}]" value="{{ metric.id }}" />
+                                                                                <!-- <input type="hidden" name="metric_id[{{ forloop.parentloop.counter0 }}]" value="{{ metric.id }}" /> -->
+                                                    
+                                                                            {% endif %}
+
+                                                                        {% endfor%}
+												                        
+											                        </div>
+										                        </div>
+                                                                 
+                                                                <br />
+                                                            {% endfor %}
+                                                                <div style="display:none">{{ count|add:"+1" }}</div>
+                                                                
+                                                            {% endwith %}
+
+
+                                                            <!--attachment form start-->
+                                        
+                                                            <!--
+                                                                
+                                                            <div class="item form-group">
+											                    <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">{{ requirement.get_attachment_detail.document_name }}</label>
+											                    <div class="col-md-6 col-sm-6 ">
+												                    <input id="tel_number" class="form-control" type="file" name="attachment">
+                                                                    <span>{{requirement.get_attachment_detail.notes}}:-</span>
+                                                                    <input type="hidden" name="attachment_detail_id" value="{{ requirement.get_attachment_detail.id }}" />
+
+											                    </div>
+										                    </div>
+                                                                
+                                                                -->
+                                                            <hr />
+                                                            <div class="panel" id="modal-progress"  data-backdrop="static" data-keyboard="false">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+	                                                                    <div class="modal-header">
+	                                                                    <h4 class="modal-title">Upload progress</h4>
+	                                                                    </div>
+	                                                                    <div class="modal-body">
+	                                                                    <div class="progress">
+		                                                                    <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+	                                                                    </div>
+	                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                            
+                                                                <!--TODO: functionality for uploading multiple files uncomment file below. javascript script is below the file-->
+                                                                        
+                                                            {# 1. BUTTON TO TRIGGER THE ACTION #}
+											                  <button type="button" class="btn btn-primary js-upload-photos">
+												                <span class="glyphicon glyphicon-cloud-upload"></span> Upload attachment
+											                </button>
+
+											                  <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+												                <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+												                <h3>Drop Files Here to Upload
+                                                                  </h3>
+                                                                  <br />
+                                                                  <span>{{ requirement.get_attachment_detail.document_name }}</span>
+                                                                  <span>{{ requirement.get_attachment_detail.notes }}</span>
+											                </div>
+											
+											                {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+														
+														
+											                <input id="fileupload" type="file" name="attachment" multiple
+													                style="display: none;"
+													                data-url="{% url 'basic_upload' %}"
+															   
+													                accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+															   
+													                data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}","entry_id": "{{ entry.id }}", "user_type": "contractor", "attachment_detail_id":"{{ requirement.get_attachment_detail.id }}" }'/>
+										
+                                                            	
+                                        
+
+                                                            <input type="hidden" name="requirement_id" value="{{ requirement.id }}" />
+                                                            <input type="hidden" name="reference_id" value="{{ reference.id }}" />
+                                                            <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                                                            <!--attachment form end-->
+                                                            <!--attachment form end-->
+										        
+										        
+										                    <div class="ln_solid"></div>
+										                    <div class="item form-group">
+											                    <div class="col-md-6 col-sm-6 offset-md-3">
+												                    <!--<button class="btn btn-primary" type="button">Cancel</button>-->
+												                    <!--<button class="btn btn-primary" type="reset">Reset</button>-->
+												                    <button type="submit" class="btn btn-success">Save</button>
+											                    </div>
+										                    </div>
+                                                
+                                                
+									                    </form>
+								                    </div>
+							                    </div>
+						            </div>
+
+
+
+                                {% endif %}
+                              {% endif %}
+                              <!-- metric requirement form end -->
+
+
+
+                            <!-- personnel form start -->
+
+
+
+                {% if person %}
+                                    
+
+                    <div class="col-sm-12 col-sm-12 ">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2 class="text-primary">{{person.designation.designation_name}} <small></small></h2>
+								<div class="col-md-4 text-right">
+                                    <p class="date"> Last updated: {{ entry.updated_at }}</p>
+                                </div>
+								<div class="clearfix"></div>
+							</div>
+                            <form method="post" enctype="multipart/form-data" action="{% url 'update_personnel_details'%}" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                    {% csrf_token %}
+                                <!--get previous reviews for this personnel start-->
+                                                
+                                    {% get_relationship entry as relationship %}
+                                    {% if relationship is not None %}
+                                    {% load noncompliance %}
+                                    {% get_previous_personnel_issue relationship.parent person.designation as p_issue %}
+                                    {% if p_issue != None %}
+                                        <h4>Note previous reviews below and elaborate on measures taken/ to be taken on any area whose approval was not given.</h4>
+                                        <p class="text-danger">{{ p_issue.notes }}</p><br /><hr />
+                                    {% endif %}
+                                    {% endif %}
+                                    <!--get previous reviews for this personnel end -->
+							<div class="x_content">
+								<br />
+									        
+
+									<div class="item form-group">
+										<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name 
+										</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="first_name" required name="first_name" value="{% if person.first_name == None %} {% else %}  {{ person.first_name }} {% endif %}" class="form-control ">
+										</div>
+									</div>
+									<div class="item form-group">
+										<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Other Name 
+										</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="other-name" required name="other_name" value="{% if person.other_name == None %} {% else %}  {{ person.other_name }} {% endif %}" class="form-control">
+										</div>
+									</div>
+									<div class="item form-group">
+										<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input id="person_email" required value="{% if person.email == None %} {% else %}  {{ person.email }} {% endif %}" class="form-control" type="email" name="email">
+										</div>
+									</div>
+                                    <div class="item form-group">
+										<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Telephone number</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input id="tel_number" required value="{% if person.tel_number == None %} {% else %}  {{ person.tel_number }} {% endif %}" class="form-control" type="tel" name="tel_number">
+										</div>
+									</div>
+                                    <br />
+                                <hr />
+                                    <h3><strong>Attachments</strong></h3>
+                                    <!--attachment form start-->
+                                    {% for document_form in personnel_document_form %}
+                                    <div class="form-group" id="attachment-container">
+		                                <div class="form-group">
+                                            <label for="{{ document_form.label }}" class="col-md-2 control-label"><strong>{{ document_form.label }}</strong></label>
+                                                        
+                                            <div class="">
+                                                {{ document_form }}
+                                            </div>
+                                                        
+                                        </div>
+	                                </div>
+                                    {% endfor %}
+                                    <input type="hidden" name="personnel_id" value="{{ person.id }}" />
+                                    <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                                    <!--attachment form end-->
+										        
+										        
+									<div class="ln_solid"></div>
+                                <div class="clearfix"></div>
+                                <br />
+									<div class="item form-group">
+										<div class="col-md-6 col-sm-6 offset-md-3">
+											<!--<button class="btn btn-primary" type="button">Cancel</button>-->
+											<!--<button class="btn btn-primary" type="reset">Reset</button>-->
+											<button type="submit" class="btn btn-success">Save</button>
+										</div>
+									</div>
+                                                
+                                                
+									       
+							</div>
+                                    </form>
+						</div>
+					</div>
+
+                    {% endif %}
+            <!--  personnel form end -->
+                            
+                            <p><!-- some notes go here--></p>
+                          </div>
+
+                           
+                          <div class="attachment">
+                            <p>
+                              <span><i class="fa fa-paperclip"></i> {{attachment_submissions.count}} {{ person.get_attachments.count }} attachment(s) — </span>
+                              <!--<a href="#">Download all attachments |</a>--><!--todo:: download all attachments feature-->
+                              
+                            </p>
+                            
+                                <!--get uploaded docs-->
+                              {% if not person %}
+                               {# 3. TABLE TO DISPLAY THE UPLOADED RESOURCES #}
+										<div class="col-md-6">
+                                            <table id="gallery" class="table table-bordered">
+											    <thead>
+											    <tr>
+												    <th>Attachments</th>
+											    </tr>
+											    </thead>
+											    <tbody>
+											    {% for attachment in attachment_submissions %}
+												    <tr>
+												    <td>
+                                                        <a target="_blank" href="{% url 'read_requirement_attachment' attachment.id %}">Read</a>
+                                                        <a target="_blank" href="{{ attachment.attachment.url }}">{{ attachment.attachment.name }}</a>
+                                                        <a onclick="return confirm('Are you sure you want to delete this document? This process is irreversible');" href="{% url 'delete_requirement_attachment' attachment.id %}" class="text-danger pull-right"><i class="fa fa-trash-o pull-right"></i>Remove</a></td>
+												    </tr>
+											    {% endfor %}
+											    </tbody>
+										    </table>
+                                        </div>
+                              {% endif %}
+
+                                {% for attachment in attachment_submissions %}
+                                  
+                                     <div class="col-md-8">
+                                          
+                                        <div class="file-name text-primary">
+                                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                                          {{ attachment.attachment.name }}
+                                        </div>
+                                        <span><!--todo:: get size of file and other info--></span>
+
+
+                                        <div class="links">
+                                            <a class="warning red" onclick="return confirm('Are you sure you want to delete this document? This process is irreversible');" href="{% url 'delete_requirement_attachment' attachment.id %}">Delete</a> -
+                                            <!--Todo: fix this link-->
+                                            <a target="_blank" href="{{ attachment.attachment.url }}">Download</a>
+                                        </div>
+                                  
+                                     </div>
+
+                                {% endfor %}
+
+                                {% if person %}
+
+                                    {% for attachment in person.get_attachments %}
+                                      <div>
+                                        
+                                        <div class="file-name text-primary">
+                                        <span class="glyphicon glyphicon-folder-open" aria-hidden="true">{{ attachment.description }}</span>
+                                          
+                                        </div>
+                                        <span><!--todo:: get size of file and other info--></span>
+
+                                        <div class="links">
+                                          <a class="warning red" onclick="return confirm('Are you sure you want to delete this document? This process is irreversible');" href="{% url 'delete_personnel_attachment' attachment.id %}">Delete</a>
+                                          <a target="_blank" href="{{ attachment.attachment.url }}">Download</a>
+                                        </div>
+                                      </div>
+
+                                    {% endfor %}
+
+                                {% endif %}
+                    
+                             
+                          </div>
+                          <!--
+                           
+                           <div class="btn-group">
+                            <button class="btn btn-sm btn-default" type="button"  data-placement="top" data-toggle="tooltip" data-original-title="Forward"><i class="fa fa-share"></i></button>
+                            <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Print"><i class="fa fa-print"></i></button>
+                            <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Trash"><i class="fa fa-trash-o"></i></button>
+                          </div>
+                          
+                           -->
+                            
+                        </div>
+
+                      </div>
+                      <!-- end test section-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>    
+
+<script>
+    $(document).ready(function(){
+ 
+    document.getElementById('modal-progress').style.display = 'none';
+
+  // Initialize select2
+  $("#selUser").select2();
+
+  // Read selected option
+  $('#but_read').click(function(){
+    var username = $('#selUser option:selected').text();
+    var reference_id = $('#selUser').val();
+
+    $('#result').html("id : " + reference_id + ", name : " + username);
+
+    $.ajax({
+		type: 'GET',
+		url: 'compliance/entry/{{entry.id}}/record/{{record.id}}/reference/reference_id/',
+		data: {
+			reference_id: $('#selUser').val(),
+            record_id: {{ record.id }},
+			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+		},
+		success: function (data) {
+            $('button').html(data);
+		}
+	});
+  });
+});
+</script>
+
+        
+{% endblock %}
+
+
+{% block javascript %}
+	  {# JQUERY FILE UPLOAD SCRIPTS #}
+<script src="{% static 'assets/jQueryFileUpload/js/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'assets/jQueryFileUpload/js/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'assets/jQueryFileUpload/js/jquery.fileupload.js' %}"></script>
+
+	  {# PHOTOS PAGE SCRIPTS #}
+<script src="{% static 'assets/jQueryFileUpload/js/file_upload.js' %}"></script>
+
+<!-- <script src="{% static 'assets/javascripts/forms/examples.wizard.js' %}"></script> -->
+{% endblock %}

@@ -1,0 +1,84 @@
+ {% extends 'compliance/layout.html' %}
+{% block styles %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %} 
+
+   {% load static %}
+{% block content %}
+{% load datetime_tags %}
+{% load model_tags %}
+
+    <div class="right_col" role="main">
+
+          <div class="">
+
+            <div class="page-title">
+              <div class="title_left">
+              </div>
+
+              <div class="title_right">
+                <!--search goes here-->
+              </div>
+            </div>
+
+
+            <div class="clearfix"></div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2 class="text-info">{{ document.attachment.name }}<small></small></h2>
+                      
+                    <ul class="nav navbar-right panel_toolbox">
+                      
+                      
+                      
+                    </ul>
+
+                       
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+
+                    <div class="row">
+                      <div class="col-sm-12 ">
+                        <h5 class="green">Requirement:<strong> {{ document.requirement_detail }}</strong></h5><hr />
+
+                        <div class="container">
+			            <iframe class="responsive-iframe" id="responsive-iframe" src="https://docs.google.com/gview?url=https://localhost:8000/{{ document.attachment.url }}&embedded=true" 
+                        style="width:100%; height:100%;"  scrolling=no frameborder="0"></iframe>
+                            <hr />
+                            <!--
+                           <iframe id="iframe_pdf" src="http://view.officeapps.live.com/op/view.aspx?src=https://localhost:8000/{{ document.attachment.url }}" 
+                            style="width:100%; height:100%;"></iframe> 
+                          -->
+		                </div>
+
+                          <hr /><br />
+                          
+                        <a href="{{ document.attachment.url }}" class="btn btn-success">Download</a>
+                        
+                      </div>
+                      <!-- /MAIL LIST -->
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>    
+
+
+        
+{% endblock %}
+
+
+{% block javascript %}
+
+{% endblock %}
+
+

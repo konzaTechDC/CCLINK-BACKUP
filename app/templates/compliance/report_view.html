@@ -1,0 +1,705 @@
+﻿{% extends 'compliance/layout.html' %}
+
+{% block content %}
+    {% load datetime_tags %}
+    {% load noncompliance %}
+    <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>{{ entry.project_name }} Compliance report on {{ entry.compliance_record.type }} <small> for period {{entry.get_month}}/{{entry.year}}</small></h3>
+              </div>
+
+              
+            </div>
+
+            <div class="clearfix"></div>
+              <div class="row">
+                  
+              </div>
+
+            <div class="row">
+
+
+
+                <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-bars"></i>{{ entry.project_name }} Compliance<small>Report</small></h2>
+                      <span class="text-info">[ {{ entry.status }} ]</span>
+                    <ul class="nav navbar-right panel_toolbox">
+                      
+                      <li><a href="{% url 'report_download' entry.id %}" target="_blank" class="btn btn-primary"><i class="fa fa-download"></i> Download Summary </a></li>
+                     
+                    </ul>
+                      {% if request.user.is_staff or request.user.is_admin %}
+                      <!--publish button start-->
+                        <div class="btn pull-right">
+                          <a class="btn btn-primary" href="" data-toggle="modal" data-target=".bs-example-modal-lg">
+                              {% if entry.is_published == True %}
+                                Acknowledged
+                              {% elif entry.is_rejected == True %}
+                                Rejected
+                              {% elif entry.is_rejected == False and entry.is_published == False %}
+                                Pending Acknowledgement
+                              {% endif %}
+                          </a>
+                      </div>
+                        
+                        <!--publish button end-->
+
+                      <!-- publish modal -->
+                      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="myModalLabel2">Review {{ entry.project_name }} {{entry.month}}/{{entry.year}}&nbsp;&emsp;</h4>
+                                <a class="btn btn-warning pull-right" data-toggle="modal" data-target=".bs-example-modal-lg_review">
+                                Reviews list
+                                </a>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                              {{ entry_form.media }}
+                              {% if request.user.is_manager or request.user.is_teamlead or request.user.is_admin %}
+                              <form action="{% url 'acknowledge_entry' %}" method="post">
+                                  {% csrf_token %}
+                                <div class="modal-body">
+                                
+                                    <div class="form-group row">
+									
+                                    <br />
+                                        
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <div class="form-group">
+                                                <label>Final Review/Comments</label>
+                                                <!--<textarea class="form-control" name="review">{{ entry.review }}</textarea>-->
+
+                                                <div>
+                                                    <textarea id="summernote_{{ entry.id }}" class="form-control"  name="review">{% if entry.review is not None %}{{entry.review}}{% endif %}</textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_{{ entry.id }}').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: 700,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+
+                                                <span class="text-info" >Give your general comments on the report. If you choose to leave the textbox blank, the report will be labeled as <i>"ACKNOWLEDGED WITHOUT COMMENTS"</i>. Otherwise, the the report will be labeled as <i>"ACKNOWLEDGED WITH COMMENTS"</i></span>
+                                            </div>
+                                        </div>
+								        <div class="col-md-9 col-sm-9 ">
+                                             <h4>Declaration</h4>
+                                             <p>I declare that all the information recorded herein include the complete records and is true to the best of my knowledge</p>
+
+										    <div class="checkbox">
+											    <label>
+												    <input type="checkbox" required name="is_acknowledged" value="0" class="flat"> I acknowledge
+											    </label>
+										    </div>
+												
+										</div>
+                           
+									</div>
+                                    
+                                    <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                                
+                            
+                                </div>
+                            <div class="modal-footer">
+                              
+                              <button type="submit" name="accept" value="1" class="btn btn-primary">Acknowledge report</button>
+                                <button type="submit" name="reject" value="1" class="btn btn-danger">Reject report</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                              </form>
+                              {% else %}
+                              <p class="text-danger">You do not have permission to access this feature</p>
+                              {% endif %}
+
+                          </div>
+                        </div>
+                      </div>
+                  <!-- /publis modal -->
+
+                      
+                      
+
+                      {% endif %}
+
+                      <!--publish button start-->
+                        <div class="btn pull-right">
+                         
+
+                            <a class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-lg_review">
+                                Reviews
+                            </a>
+                      </div>
+                        
+                        <!--publish button end-->
+
+                      <!-- reviews modal -->
+
+                      <div class="modal fade bs-example-modal-lg_review" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="myModalLabel2">{{ entry.project_name }} {{entry.month}}/{{entry.year}} Review/Comments</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                              {{ entry_form.media }}
+                              {% if request.user.is_staff or request.user.is_admin or request.user == entry.created_by %}
+                              
+                                <div class="modal-body">
+                                
+                                    <div class="form-group row">
+									
+                                    <br />
+                                        
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <div class="form-group" style="overflow:scroll; width:700px; height:400px;">
+                                                
+                                                
+                                                {% get_personnel_issues entry as issues %}
+                                                {% if issues is not None %}
+                                                <h4>Personnel Issues</h4>
+                                                {% for issue in issues %}
+                                                 <!-- start of reviewer messages -->
+                                                <ul class="messages">
+                                                {% for issue in issues %}
+                                                  <li style="list-style:none;">
+                                                    <img src="{{ issue.last_updated_by.avatar }}" class="avatar" alt="Avatar">
+                                                    <div class="message_date">
+                                                      <!-- <h3 class="date text-info">24</h3> -->
+                                                      <p class="month">{{ issue.updated_at }}</p>
+                                                    </div>
+                                                    <div class="message_wrapper">
+                                                      <h4 class="heading">{{ issue.last_updated_by.last_name }}</h4>
+                                                      <blockquote class="message"><strong>Requirement: <span class="text-primary">{{ issue.personnel }} ( {{ issue.personnel.designation }} )</span> </strong><br />Comment:<p class="text-danger">{{ issue.notes|safe }}</p></blockquote>
+                                                      <br />
+                                                    </div>
+                                                  </li>
+                                                 {% endfor %}
+                                                </ul>
+                                                <!-- end of reviewer messages -->
+                                                {% endfor %}
+                                                {% else %}
+                                                <span>No Comment</span>
+                                                {% endif %}
+
+
+
+                                                <br />
+                                                {% get_issues entry as non_compliance %}
+                                                {% if non_compliance is not None %}
+                                                <h4>Other Comments</h4>
+                                                <!-- start of other comments -->
+                                                <ul class="messages">
+                                                    {% for issue in non_compliance %}
+                                                      <li style="list-style:none;">
+                                                        <img src="{{ issue.last_updated_by.avatar }}" class="avatar" alt="Avatar">
+                                                        <div class="message_date">
+                                                          <!-- <h3 class="date text-info">24</h3> -->
+                                                          <p class="month">{{ issue.updated_at }}</p>
+                                                        </div>
+                                                        <div class="message_wrapper">
+                                                          <h4 class="heading">{{ issue.last_updated_by.last_name }}</h4>
+                                                          <blockquote class="message"><strong>Requirement:<span class="text-primary">{{ issue.requirement }}</span></strong> <br /> Comment:<p class="text-danger">{{ issue.notes|safe }}</p></blockquote>
+                                                          <br />
+                                                        </div>
+                                                      </li>
+                                                    </ul>
+                                                    <!-- end of other comments -->
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <span>No Comment</span>
+                                                {% endif %}
+
+                                                {% if non_compliance.count <= 0 and issues.count <= 0 %}
+                                                    <span>No Comment</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+								        
+                           
+									</div>
+                                    
+                                    <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                                
+                            
+                                </div>
+                            <div class="modal-footer">
+                              
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                              {% else %}
+                              <p class="text-danger">You do not have permission to access this feature</p>
+                              {% endif %}
+
+                          </div>
+                        </div>
+                      </div>
+                  <!-- /reviews modal -->
+
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      {% if entry.is_active or entry.is_published %}
+                      <!-- start accordion -->
+                    <div class="accordion " id="accordion1" role="tablist" aria-multiselectable="true">
+                      
+                      <div class="panel">
+                        <a class="panel-heading active" style="background-color:lightgreen;" role="tab" id="headingThree1" data-toggle="collapse" data-parent="#accordion1" href="#collapseThree1" aria-expanded="true" aria-controls="collapseThree">
+                          <h4 class="panel-title text-info">COMMENTS</h4><span><strong>Click to view comments</strong></span>
+                        </a>
+                        <div id="collapseThree1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                          <div class="panel-body">
+                            {% if entry.summary %}
+                            <h6>
+                                <strong><u>Contractor Comments</u></strong>
+                            </h6>
+                              
+
+                             <h5><strong>Company name:</strong> {{ entry.last_updated_by.contractorprofile.company_name }}</h5>
+                              <h6><strong>Submitted by:</strong> {{ entry.last_updated_by.first_name }} {{ entry.last_updated_by.last_name }}</h6>
+                              <h6><strong>Submitted at:</strong> {{ entry.submitted_at }}</h6>
+                              <h6><strong>Summary:</strong> {{ entry.summary|safe }}</h6>
+                              <br /><hr />
+                              {% endif %}
+
+
+                              {% if entry.review %}
+                              <h6>
+                                <strong><u>PPDC Comments</u></strong>
+                              </h6>
+
+                              <h5><strong>Reviewed by:</strong> {{ entry.evaluated_by.first_name }} {{ entry.last_updated_by.last_name }}</h5>
+                              {% if entry.status %}
+                              <h5 class="text-info"><strong>Status:</strong>[ {{ entry.status }} ]</h5>
+                              {% endif %}
+                              <h6><strong>Comments:</strong> {{ entry.review|safe }}</h6>
+                              <br /><hr />
+                              {% endif %}
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end of accordion -->
+                      {% endif %}
+                      <div class="clearfix"></div>
+
+
+                      
+                     
+
+                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link {% if module %} {% else %} active {% endif %}" id="home-tab"  href="{% url 'view_entry_report' entry.id %}" >Personnel</a>
+                      </li>
+                        {% for mod in entry.compliance_record.get_compliance_modules %}
+                          <li class="nav-item">
+                            <a class="nav-link {% if module == mod%} active {% else %} {% endif %}" id="profile-tab"  href="{% url 'view_entry_module_report' entry.id mod.id %}" >{{ mod.type }}</a>
+                          </li>
+                        {% endfor %}
+                      
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+
+                        
+                        {% if module %}
+                        <!--modules panel start-->
+                      <div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        
+
+                            <div class="x_content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                                            <p class="text-muted font-13 m-b-30">
+                                               <!-- Some text can go here -->
+                                            </p>
+                                            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                                <thead>
+                                                <tr>
+                                                    <th>Reference/Parameter(s)</th>
+                                                    <th>Requirement</th>
+                                                    <th style="width: 40%">Metrics</th>
+                                                    <th>Documents</th>
+                                                    <th>Reviews</th>
+                                                    <th>Options</th>
+                                                </tr>
+                                                </thead>
+
+
+                                                <tbody>
+                                                    {% for reference in module.get_compliance_references %}
+                                                        {% for requirement in reference.get_reference_requirements %}
+                                                            <tr>
+                                                                <td>{{reference.reference}}: {{reference.parameter}}</td>
+                                                                <td>{{requirement.requirement_name}}</td>
+                                                                <td>
+                                                                    {% for metric in requirement.get_metrics %}
+                                                                        {% for submission in metric.get_submissions %}
+                                                                            {% if entry == submission.record_entry %}
+                                                                                <strong class="text-primary">{{ metric.metric_type }}:</strong> {{ submission.notes | safe }}<br /><hr />
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endfor %}
+                                                                </td>
+                                                                <td>
+                                                                    {% for attachment_detail in requirement.get_attachment_details %}
+                                                                        {% for attachment_submission in attachment_detail.get_submissions %}
+                                                                            {% if attachment_submission.record_entry == entry %}
+                                                                                <div class="file-name">
+                                                                                    {{ attachment_detail.document_name }}
+                                                                                </div>
+
+
+                                                                                <div class="links">
+                                                                                    {% if request.user.is_projectmanager or request.user.is_contractor or request.user.is_admin %}
+                                                                                    <a class="warning red" onclick="return confirm('Are you sure you want to delete this document? This process is irreversible');" href="{% url 'delete_requirement_attachment' attachment_submission.id %}">Delete</a>
+                                                                                    {% endif %}
+                                                                                    <a target="_blank" href="{{ attachment_submission.attachment.url }}"><u>Download</u></a>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endfor %}
+                                                                </td>
+
+                                                                <!-- check if there is a non-compliance issue, if true; display the notes, if false; display a button-->
+                                                                <td id="cell_'{{ requirement.id }}">
+                                                                    {% load noncompliance %}
+
+                                                                    {% get_requirement_issues entry.id requirement.id as issue %}
+
+                                                                    {% if entry.is_published != True %}
+                                                                        {% if request.user.is_staff or request.user.is_admin %}
+                                                                        <a class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-md_{{ requirement.id }}" id="noncompliance_modal_{{ requirement.id }}" >Write Comment</a>
+                                                                        <!-- Small modal -->
+
+                                                                         <div class="modal fade bs-example-modal-md_{{ requirement.id }}" id="noncompliance_modal_{{ requirement.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-lg" id="noncompliance_modal_{{ requirement.id }}">
+                                                                          <div class="modal-content" id="noncompliance_content_"{{ requirement.id }}">
+
+                                                                            <div class="modal-header">
+                                                                              <h4 class="modal-title" id="myModalLabel2">Write a review for {{ requirement.requirement_name }} {{ entry.month }}/{{ entry.year }}</h4>
+                                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                                                              </button>
+                                                                            </div>
+                                                                              <form action="{% url 'raise_noncompliance_issue' %}" method="post" id="non_compliance_{{ requirement.id }}">
+                                                                                  {% csrf_token %}
+                                                                                <div class="modal-body">
+                                                                                
+
+                                                                                    <div class="form-group row">
+									                                                <h4></h4>
+
+                     
+								                                                        <div class="col-md-9 col-sm-9 ">
+                                                                                            <div>
+                                                                                                <textarea id="summernote_{{ requirement.id }}" class="form-control"  name="notes"></textarea>
+                                                                                            </div>
+                                                                                            <script>
+                                                                                                    $('#summernote_{{ requirement.id }}').summernote({
+                                                                                                    tabsize: 2,
+                                                                                                    height: 100,
+                                                                                                    width: 700,
+                                                                                                    minHeight: null,             // set minimum height of editor
+                                                                                                    maxHeight: null,             // set maximum height of editor
+                                                                                                    focus: true                  // set focus to editable area after initializin
+                                                                                                    });
+                                                                                            </script>
+                                                                                            <!--
+										                                                    <div class="textarea">
+											                                                    <label>
+												                                                    Comments
+											                                                    </label>
+                                                                                                <textarea required name="notes" id="notes_{{ requirement.id }}" class="form-control"></textarea>
+										                                                    </div>-->
+												
+										                                                </div>
+                           
+
+									                                                </div>
+                                    
+                                                                                    <input type="hidden" id="entry_id_{{ requirement.id }}" name="entry_id" value="{{ entry.id }}" />
+                                                                                    <input type="hidden" id="requirement_id_{{ requirement.id }}" name="requirement_id" value="{{ requirement.id }}" />
+                            
+                                                                                </div>
+                                                                            <div class="modal-footer">
+                                                                              <button id="non_compliance_close_{{ requirement.id }}" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                              <button id="non_compliance_submit_{{ requirement.id }}" type="submit" class="btn btn-primary">Submit</button>
+                                                                            </div>
+                                                                              </form>
+
+
+
+
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                         <!-- /modals -->
+
+                                                                        <p class="text-danger" id="noncompliance_notes_{{ requirement.id }}"></p><br />
+
+                                                                        {% endif %}
+                                                                    {% endif %}
+
+                                                                    {% if issue == None %}
+                                                                        <i>No Comment</i>
+                                                                        
+                                                                    {% else %}
+                                                                        <ul>
+                                                                            {% for comment in issue %}
+                                                                            <li style="list-style:none;">
+                                                                                <div class="container" style="background-color:lightgray; padding:10px;">
+                                                                                    <p class="text-danger" id="noncompliance_notes_{{ requirement.id }}">{{ comment.notes | safe }}</p><br />
+                                                                                    <span>By: {{ comment.last_updated_by.last_name }}</span>
+                                                                                    {% if request.user == comment.last_updated_by.id or request.user.is_admin == True %}
+                                                                                    <a href="{% url 'delete_noncompliance_issue' comment.id %}" onclick="return confirm('Are you sure you want to delete this comment? This process is irreversible');" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            </li>
+                                                                            <hr />
+                                                                            {% endfor %}
+                                                                        </ul>
+                                                                        
+                                                                    {% endif %}
+                                                                     
+
+
+                                                                    
+                                                                    <!-- Mark as finished -->
+                                                                    <script type="text/javascript">
+                                                                        
+		                                                                $('#non_compliance_'+{{ requirement.id }}).on('submit', function (e) {
+			                                                                e.preventDefault();//prevents from reloading
+                                                                            
+			                                                                $.ajax({
+				                                                                type: 'POST',
+				                                                                url: '/non_compliance/issue/raise/',
+				                                                                data: {
+                                                                                    entry_id: $('#entry_id_'+{{ requirement.id }}).val(),
+                                                                                    requirement_id: $('#requirement_id_'+{{ requirement.id }}).val(),
+                                                                                    notes: $('#summernote_'+{{ requirement.id }}).val(),
+					                                                                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+				                                                                },
+                                                                                
+				                                                                success: function (data) {
+                                                                                    
+                                                                                    $('#noncompliance_notes_'+{{ requirement.id }}).html(data);
+                                                                                    console.log("success mathafaka");
+				                                                                }
+			                                                                });
+                                                                            $('#noncompliance_modal_'+{{ requirement.id }}).modal('toggle');
+		                                                                });
+
+                                                                         $('#non_compliance_submit_{{ requirement.id }}').click(function() {
+                                                                            setTimeout(function() {$('#noncompliance_modal_'+{{ requirement.id }}).modal('toggle');}, 1);
+                                                                        });
+
+	                                                                </script>
+                                                                    <!-- /.Mark as finished -->
+
+
+
+
+
+
+
+
+
+                                                                </td>
+                                                                <!--end non compliance check-->
+                                                                <td>
+                                                                    {% is_submission_period as date_check %}
+                                                                    {% if entry.is_published == False  and entry.compliance_record.submission_enabled == True and request.user.is_projectmanager %}
+                                                                        <a href="{% url 'compliance_requirement_view' entry.id entry.compliance_record.id reference.id requirement.id %}">Edit</a>
+                                                                    {% elif request.user.is_admin %}
+                                                                        <a href="{% url 'compliance_requirement_view' entry.id entry.compliance_record.id reference.id requirement.id %}">Edit (admin)</a>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                    
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                       
+                      </div>
+                        <!--modules panel end-->
+                        {% else %}
+                        <!--personnel panel start-->
+                          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                          <!--begin table-->
+                        <div>
+                            
+                            <div class="x_content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                                            <p class="text-muted font-13 m-b-30">
+                                               Personnel
+                                            </p>
+                                            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                                <thead>
+                                                <tr>
+                                                    <th>Designation</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Telephone</th>
+                                                    <th>Documents</th>
+                                                    <th>Reviews</th>
+                                                    <th>Options</th>
+                                                </tr>
+                                                </thead>
+
+
+                                                <tbody>
+                                                    {% for personnel in entry.get_personnel %}
+                                                    <tr>
+                                                        <td>{{personnel.designation.designation_name}}</td>
+                                                        <td>{{ personnel.first_name }} {{ personnel.other_name }}</td>
+                                                        <td>{{ personnel.email }}</td>
+                                                        <td>{{ personnel.tel_number }}</td>
+                                                        <td>
+                                                            {% for attachment in personnel.get_attachments %}
+                                                              
+                                                                <div class="file-name">
+                                                                    {{ attachment.description }}
+                                                                </div>
+
+
+                                                                <div class="links">
+                                                                    {% if request.user.is_projectmanager or request.user.is_contractor or request.user.is_admin %}
+                                                                    <a class="warning red" onclick="return confirm('Are you sure you want to delete this document? This process is irreversible');" href="{% url 'delete_personnel_attachment' attachment.id %}">Delete</a>
+                                                                    {% endif %}
+                                                                    <a target="_blank" href="{{ attachment.attachment.url }}">Download</a>
+                                                                </div>
+
+                                                            {% endfor %}
+                                                        </td>
+                                                        <!-- check if there is a non-compliance issue, if true; display the notes, if false; display a button-->
+                                                                <td>
+                                                                    {% load noncompliance %}
+
+                                                                    {% get_personnel_issue entry.id personnel.id as issue %}
+                                                                    {% if issue == None %}
+                                                                    {% if request.user.is_staff == True or request.user.is_admin == True %}
+                                                                        <a class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-md_{{ personnel.id }}">Write review</a>
+                                                                        <!-- Small modal -->
+
+                                                                      <div class="modal fade bs-example-modal-md_{{ personnel.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-md">
+                                                                          <div class="modal-content">
+
+                                                                            <div class="modal-header">
+                                                                              <h4 class="modal-title" id="myModalLabel2">Write review for {{ personnel.designation.designation_name }} for period {{ entry.month }}/{{ entry.year }}</h4>
+                                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                                                              </button>
+                                                                            </div>
+                                                                              <form action="{% url 'raise_personnel_noncompliance_issue' %}" method="post">
+                                                                                  {% csrf_token %}
+                                                                                <div class="modal-body">
+                                                                                
+
+                                                                                    <div class="form-group row">
+									                                                <h4></h4>
+                     
+                                    
+								                                                        <div class="col-md-9 col-sm-9 ">
+                                                                                            
+										                                                    <div class="textarea">
+											                                                    <label>
+												                                                    Comments
+											                                                    </label>
+                                                                                                <textarea required name="notes" class="form-control"></textarea>
+										                                                    </div>
+												
+										                                                </div>
+                           
+
+									                                                </div>
+                                    
+                                                                                    <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                                                                                    <input type="hidden" name="personnel_id" value="{{ personnel.id }}" />
+                            
+                                                                                </div>
+                                                                            <div class="modal-footer">
+                                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                              <button type="submit" class="btn btn-primary">Submit</button>
+                                                                            </div>
+                                                                              </form>
+
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                  <!-- /modals -->
+                                                                    {% endif %}
+                                                                    {% else %}
+                                                                        <p class="text-danger">{{ issue.notes }}</p><br />
+                                                                    {% if request.user.is_staff == True or request.user.is_admin == True %}
+                                                                        <a href="{% url 'delete_personnel_noncompliance_issue' issue.id %}" onclick="return confirm('Are you sure you want to delete this comment? This process is irreversible');" class="btn btn-danger">Remove</a>
+                                                                    {% endif %}
+                                                                    {% endif %}
+                                                                     
+
+                                                                </td>
+                                                                <!--end non compliance check-->
+                                                        <td>
+                                                            {% is_submission_period as date_check %}
+                                                            {% if entry.is_published == False  and entry.compliance_record.submission_enabled == True and request.user.is_projectmanager %}
+                                                                <a class="links" href="{% url 'compliance_personnel_view' entry.id entry.compliance_record.id personnel.id %}" >Edit</a>
+                                                            {% elif request.user.is_admin %}
+                                                                <a class="links" href="{% url 'compliance_personnel_view' entry.id entry.compliance_record.id personnel.id %}" >Edit</a>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                    
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                              
+                        </div>
+                          <!-- end table -->
+                      </div>
+                        <!--personnel panel end-->
+                         {% endif %}
+                      
+                    </div>
+                  </div>
+                </div>
+              
+              
+              </div>
+
+
+
+
+
+            
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+    
+{% endblock %}

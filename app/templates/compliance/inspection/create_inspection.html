@@ -1,0 +1,351 @@
+ {% extends 'compliance/layout.html' %}
+{% block styles %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %} 
+
+   {% load static %}
+{% block content %}
+{% load datetime_tags %}
+{% load model_tags %}
+
+    <div class="right_col" role="main">
+
+          <div class="">
+
+            <div class="page-title">
+              <div class="title_left">
+                  {% get_form_date as date %}
+                <h3 class="text-info">Non-Compliance Site Inspection <small>{{ inspection.contractor }}</small></h3>
+              </div>
+
+              <div class="title_right">
+                <!--search goes here-->
+              </div>
+            </div>
+
+
+              
+            <div class="clearfix"></div>
+
+
+            <div class="row">
+                <div class="col-sm-12 col-sm-12 ">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2 class="text-primary"> <small></small></h2>
+								<div class="col-md-4 text-right">
+                                    <p class="date"> Last updated: [{{ inspection.updated_at }}]</p>
+                                </div>
+								<div class="clearfix"></div>
+							</div>
+
+											
+								<form method="post" id="my_form" enctype="multipart/form-data" action="{% url 'post_inspection' %}" class="form-horizontal form-bordered">
+								{% csrf_token %}
+									<label>Select Reference</label>
+									<select required name="reference_id" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+									  
+									  {% for reference in inspection.module.get_compliance_references %}
+									  <option value="{{ reference.id }}" {% if inspection.reference == reference %}selected {% endif %}>{{ reference.reference }}-{{ reference.parameter }}</option>
+									  {% endfor %}
+								  </select>
+									
+									<div class="form-group">
+                                        <label>Observation</label>
+                                                
+                                        <div>
+                                            <textarea id="summernote_observation" required class="form-control"  name="observation">{% if inspection.observation is not None %}{{ inspection.observation }}{% endif %}</textarea>
+                                        </div>
+                                        <script>
+                                                $('#summernote_observation').summernote({
+                                                tabsize: 2,
+                                                height: 100,
+                                                width: null,
+                                                minHeight: null,             // set minimum height of editor
+                                                maxHeight: null,             // set maximum height of editor
+                                                focus: true                  // set focus to editable area after initializin
+                                                });
+                                        </script>
+
+
+                                        <span class="text-info" ></span>
+                                    </div>
+
+
+									<div class="form-group">
+                                        <label>Action</label>
+                                                
+                                        <div>
+                                            <textarea id="summernote_action" class="form-control"  name="action">{% if inspection.action is not None %}{{ inspection.action }}{% endif %}</textarea>
+                                        </div>
+                                        <script>
+                                                $('#summernote_action').summernote({
+                                                tabsize: 2,
+                                                height: 100,
+                                                width: null,
+                                                minHeight: null,             // set minimum height of editor
+                                                maxHeight: null,             // set maximum height of editor
+                                                focus: true                  // set focus to editable area after initializin
+                                                });
+                                        </script>
+
+
+                                        <span class="text-info" ></span>
+                                    </div>
+
+									<div class="form-group">
+                                        <label>Coordinates</label>
+                                                
+                                        <div>
+                                            <textarea id="summernote_coordinates" class="form-control"  name="coordinates">{% if inspection.coordinates is not None %}{{ inspection.coordinates }}{% endif %}</textarea>
+                                        </div>
+                                        <script>
+                                                $('#summernote_coordinates').summernote({
+                                                tabsize: 2,
+                                                height: 100,
+                                                width: null,
+                                                minHeight: null,             // set minimum height of editor
+                                                maxHeight: null,             // set maximum height of editor
+                                                focus: true                  // set focus to editable area after initializin
+                                                });
+                                        </script>
+
+
+                                        <span class="text-info" ></span>
+                                    </div>
+									<div class="panel" id="modal-progress" style="display:none;" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+	                                            <div class="modal-header">
+	                                            <h4 class="modal-title">Upload progress</h4>
+	                                            </div>
+	                                            <div class="modal-body">
+	                                            <div class="progress">
+		                                            <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+	                                            </div>
+	                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+									<div>
+										<span>Select the type of evidence</span>
+										<ul class="nav nav-tabs">
+										  <li ><a data-toggle="tab" href=""></a></li>
+											<!--
+										  <li {% if tab == 'photo' %} class="active" {% endif %}><a href="javascript:{}" onclick="document.getElementById('my_form').submit();">Upload Photo Evidence</a></li>
+										  <li {% if tab == 'video' %} class="active" {% endif %}><a href="{% url 'post_inspection' %}" type="submit" name="save_video" value="save_video">Upload Video Evidence</a></li>
+											-->
+
+											<li ><button type="submit" name="save_photo" value="save_photo" class="btn btn-{% if tab == 'photo' %}primary{% else %}secondary{% endif %}">Photo evidence</button></li>
+											<li ><button type="submit" name="save_document" value="save_document" class="btn btn-{% if tab == 'document' %}primary{% else %}secondary{% endif %}">Document evidence</button></li>
+											<li ><button type="submit" name="save_video" value="save_video" class="btn btn-{% if tab == 'video' %}primary{% else %}secondary{% endif %}">Video evidence</button></li>
+										</ul>
+										<div class="clearfix"></div><br />
+										<div class="tab-content">
+										  <div id="home" class="tab-pane fade text-info fade">
+											
+
+										  </div>
+
+										  <div id="menu1" class="tab-pane {% if tab == 'photo' %} active {% endif %}">
+											  {% if tab == 'photo' %}
+											  {# 1. BUTTON TO TRIGGER THE ACTION #}
+											  <button type="button" class="btn btn-primary js-upload-photos">
+												<span class="glyphicon glyphicon-cloud-upload"></span> Upload photo evidence
+											</button>
+
+											  <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+												<span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+												<h3>Drop Files Here to Upload</h3>
+											</div>
+											
+											  {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+														
+														
+											<input id="fileupload" type="file" name="photo" multiple
+													style="display: none;"
+													data-url="{% url 'basic_upload' %}"
+															   
+													accept="image/*"
+															   
+													data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}", "inspection_id":"{{ inspection.id }}" }'/>
+										
+												 {# 3. TABLE TO DISPLAY THE UPLOADED RESOURCES #}
+														
+														
+												<table id="gallery" class="table table-bordered">
+													<thead>
+													<tr>
+														<th>Photo Evidence</th>
+													</tr>
+													</thead>
+													<tbody>
+													{% for photo in inspection.get_photos %}
+													  <tr>
+														<td><img style="width: 50%; display: block;" src="{{ photo.file.url }}"/>
+														  {{ photo.file.name }}
+														 <a class="btn btn-danger" href="{% url 'delete_inspection_photo' photo.id %}"><i class="fa fa-times">DELETE</i></a> 
+														 </td>
+													  </tr>
+													{% endfor %}
+													</tbody>
+												</table> 
+											  {% endif %}
+											  
+
+										  </div>
+
+
+											<div id="menu1" class="tab-pane {% if tab == 'document' %} active {% endif %}">
+											  {% if tab == 'document' %}
+											  {# 1. BUTTON TO TRIGGER THE ACTION #}
+											  <button type="button" class="btn btn-primary js-upload-photos">
+												<span class="glyphicon glyphicon-cloud-upload"></span> Upload document evidence
+											</button>
+
+											  <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+												<span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+												<h3>Drop Files Here to Upload</h3>
+											</div>
+											
+											  {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+														
+														
+											<input id="fileupload" type="file" name="document" multiple
+													style="display: none;"
+													data-url="{% url 'basic_upload' %}"
+															   
+													accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+															   
+													data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}", "inspection_id":"{{ inspection.id }}" }'/>
+										
+												 {# 3. TABLE TO DISPLAY THE UPLOADED RESOURCES #}
+														
+														
+												<table id="gallery" class="table table-bordered">
+													<thead>
+													<tr>
+														<th>Document Evidence</th>
+													</tr>
+													</thead>
+													<tbody>
+													{% for document in inspection.get_documents %}
+													  <tr>
+														<td>
+														  {{ document.file.name }}
+														 <a class="btn btn-danger" href="{% url 'delete_inspection_document' document.id %}"><i class="fa fa-times">DELETE</i></a> 
+														 </td>
+													  </tr>
+													{% endfor %}
+													</tbody>
+												</table> 
+											  {% endif %}
+											  
+
+										  </div>
+
+
+										  <div id="menu2" class="tab-pane {% if tab == 'video' %} active {% endif %}">
+
+											  {% if tab == 'video' %}
+												
+												{# 1. BUTTON TO TRIGGER THE ACTION #}
+												<button onclick="$('#fileupload').hide();" type="button" class="btn btn-primary js-upload-photos">
+													<span class="glyphicon glyphicon-cloud-upload"></span> Upload video evidence
+												</button>
+												  {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+												<div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+													<span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+													<h3>Drop Files Here to Upload</h3>
+												</div>
+
+												  <input id="fileupload" type="file" name="video" multiple
+													style="display: none;"
+													data-url="{% url 'basic_upload' %}"
+															   
+													accept="video/*"
+															   
+													data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}", "inspection_id":"{{ inspection.id }}" }'/>
+														
+											
+												  {# 3. TABLE TO DISPLAY THE UPLOADED RESOURCES #}
+												  <table id="gallery" class="table table-bordered">
+													<thead>
+													<tr>
+														<th>Video Evidence</th>
+													</tr>
+													</thead>
+													<tbody>
+														{% for video in inspection.get_videos %}
+														<tr>
+															<td><a href="">{{ video.file.name }}</a><a href="{% url 'delete_inspection_video' video.id %}" class="text-danger pull-right"><i class="fa fa-trash-o pull-right"></i>Remove</a></td>
+														</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+
+											  {% endif %}
+
+										  </div>
+										</div>
+									</div>
+
+									
+
+												
+
+									
+
+
+													
+									<input type="hidden" name="inspection_id" value="{{ inspection.id }}" />
+					
+								<!--Footer-->
+							-<div class="modal-footer" id="continue" >
+								<button type="submit" name="delete_report" value="delete_report"  class="btn btn-outline-warning">Exit without saving</button>
+								<button type="submit" name="save_draft" value="save_draft" class="btn btn-primary">Save and Continue</button>
+								<!-- <button type="submit" name="save_submit" value="save_submit" class="btn btn-primary">Save and submit</button> -->
+								</div>
+
+														
+      
+							</form>
+				
+						</div>
+					</div>
+            </div>
+          </div>
+        </div>    
+
+
+        
+{% endblock %}
+
+
+{% block javascript %}
+
+<script>
+    $(document).ready(function(){
+ 
+    document.getElementById('modal-progress').style.display = 'none';
+
+  
+});
+</script>
+
+
+	  {# JQUERY FILE UPLOAD SCRIPTS #}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="{% static 'assets/jQueryFileUpload/js/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'assets/jQueryFileUpload/js/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'assets/jQueryFileUpload/js/jquery.fileupload.js' %}"></script>
+<script src="{% static 'assets/jQueryFileUpload/js/jquery.fileupload.js' %}"></script>
+
+	  {# PHOTOS PAGE SCRIPTS #}
+<script src="{% static 'assets/jQueryFileUpload/js/file_upload.js' %}"></script>
+
+{% endblock %}

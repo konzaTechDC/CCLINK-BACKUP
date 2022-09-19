@@ -1,0 +1,787 @@
+ {% load datetime_tags %}
+    {% load form_tags %}
+    {% load model_tags %}
+
+              <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-search"></i>Non-compliance Inspection Reports <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      
+                      
+                      
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'staff' %} active {% endif %}" id="home-tab"  href="{% url 'staff_dashboard_section_toggle' "staff" "staff" %}" role="tab" aria-controls="home" aria-selected="true">PPDC Staff </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link{% if tab == 'pending_tl_inspection' %} active {% endif %}" id="profile-tab" href="{% url 'staff_dashboard_section_toggle' "staff" "pending_tl_inspection" %}" role="tab" aria-controls="profile" aria-selected="false">Pending Team Leader Review</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'pending_cm_inspection' %} active {% endif %}" id="profile-tab"  href="{% url 'staff_dashboard_section_toggle' "staff" "pending_cm_inspection" %}" role="tab" aria-controls="profile" aria-selected="false">Pending Chief Manager Review</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'published' %} active {% endif %}" id="profile-tab" href="{% url 'staff_dashboard_section_toggle' "staff" "published" %}" role="tab" aria-controls="profile" aria-selected="false"> Published Reports</a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if tab == 'complied' %} active {% endif %}" id="profile-tab" href="{% url 'staff_dashboard_section_toggle' "staff" "complied" %}" role="tab" aria-controls="profile" aria-selected="false"> Complied Reports</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'settings' %} active {% endif %}" id="contact-tab" href="{% url 'staff_dashboard_section_toggle' "staff" "settings" %}" role="tab" aria-controls="contact" aria-selected="false">Settings</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!--start contractors tab-->
+                      <div class="tab-pane fade {% if tab == 'staff' %} show active {% endif %}" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <!--contractor list table begin-->
+                          {% if tab == 'staff' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>PPDC STAFF <small>List</small></h2>
+                                      <div class="pull-right">
+                                          <!-- start modal -->
+                                          <a id="new_staff_modal" data-toggle="modal" data-target=".bs-example-modal-lg" href="#" class="btn btn-primary">Create New Staff</a>
+                                      
+                                          <div id="new_staff_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                              <div class="modal-content">
+                              
+                                                <div class="modal-header">
+                                                  <h4 class="modal-title" id="myModalLabel">Add new Staff</h4>
+                                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                               
+                                                    <div class="col-md-12 col-sm-12  ">
+                                                        <div class="x_panel">
+                                                          <div class="x_title">
+                                                            <h2><i class="fa fa-bars"></i>Complete form and submit<small>.</small></h2>
+                                        
+                                                            <div class="clearfix"></div>
+                                                          </div>
+                                                          <div class="x_content">
+
+                                                        
+                                                                    <form method="post" action="{% url 'create_staff_account' %}">
+                            
+                                                                        {% csrf_token %}
+                                                                    
+                                                                        <div class="form-group">
+                                                                            <label>Email</label>
+                                                                            <input type="email" name="email" value="" required class="form-control" />
+                                                                        </div>    
+                                                                    
+                                                                        <div class="form-group">
+                                                                            <label>Username</label>
+                                                                            <input type="text" name="username" value="" required class="form-control" />
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label>First Name</label>
+                                                                            <input type="text" name="first_name" value="" required class="form-control" />
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label>Other Name</label>
+                                                                            <input type="text" name="last_name" value="" required class="form-control" />
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label>Bio/Designation</label>
+                                                                            <textarea name="bio" value="" required class="form-control" ></textarea>
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label>Profile picture</label>
+                                                                            <input type="file" value="" name="avatar" class="form-control" />
+                                                                        </div>
+
+                                                                    
+
+                                                                        <div class="form-group">
+                                                                            <div class="custom-control custom-switch double ">
+                                                                                <input type="checkbox" class="custom-control-input " name="is_teamlead"  id="customSwitch1">
+                              
+                                                                                <label class="custom-control-label" for="customSwitch1">Is Team Leader</label>  
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                    
+                                                                        <input type="submit" value="save" class="btn btn-primary" />
+                                                                    </form>
+                                                                      <br /><hr />
+
+                                                        
+                                                          </div>
+                                                        </div>
+              
+              
+                                                    </div>
+
+
+                                                </div>
+                            
+
+
+                                              </div>
+                                            </div>
+                                          </div>
+                    
+                                          <!-- end modal -->
+                                      </div>
+                                  
+                                <ul class="nav navbar-right panel_toolbox">
+                      
+                                  
+                      
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                              <thead>
+                                                <tr>
+                                                  <th>Staff Name</th>
+                                                  <th>Designation</th>
+                                                  <th>Email</th>
+                                                  <th>Total Reports</th>
+                                                  <th>Pending Teamleader Reviews</th>
+                                                  <th>Pending Chief Manager Reviews</th>
+                                                  <th>Published Reviews</th>
+                                                  <th>Complied</th>
+                                                  <th>Extra</th>
+                                                </tr>
+                                              </thead>
+
+
+                                              <tbody>
+                                                  {% get_all_staff request as staff %}
+                                                  {% for reviewer in staff %}
+                                                <tr>
+                                                    <td>
+                                                        {{ reviewer.first_name }} {{ reviewer.last_name }}
+                                                        {% if reviewer.is_manager %}
+                                                        <span class="badge badge-pill badge-success">CM</span>
+                                                        {% elif reviewer.is_teamlead %}
+                                                        <span class="badge badge-pill badge-info">TL</span>
+                                                        {% endif %}
+                                                    </td>
+                                                  <td>{{ reviewer.bio }}</td>
+                                      
+                                                  <td><a href = "mailto: {{ reviewer.email }}">{{ reviewer.email }}</a></td>
+                                                  <td>{{ reviewer.get_all_reviews.count }}</td>
+                                                  <td>{{ reviewer.get_pending_teamlead_reviews.count }}</td>
+                                                  <td>{{ reviewer.get_pending_manager_reviews.count }}</td>
+                                                  <td>{{ reviewer.get_published_reviews.count }}</td>
+                                                  <td>{{ reviewer.get_complied_reviews.count }}</td>
+                                                  <td>
+                                                    <a href="{% url 'reviewer_profile' reviewer.id 'pending' %}" class="btn btn-secondary">View staff profile</a>
+                                                    <br />
+                                                      <form method="post" id="my_form" enctype="multipart/form-data" action="{% url 'appoint_teamlead' %}" class="form-horizontal form-bordered">
+								                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                         <label>Is Team Leader</label>
+                                                            <label class="switch" vocab="http://data-vocabulary.org">
+                                                              <input type="checkbox" name="is_teamlead" {% if reviewer.is_teamlead %} checked onchange="alert('Are you sure you would like to revoke team leader priviledges of this staff member?'); this.form.submit();" {% else %}  onchange="alert('Are you sure? This staff member will be granted team leader priviledges.'); this.form.submit();" {% endif %} {% if reviewer.is_manager %} disabled {% endif %} />
+                                                              <span class="slider"></span>
+                                                            </label>
+                                                        </div>
+                                                          <input type="hidden" name="staff_id" value="{{ reviewer.id }}" />
+                                                      </form>
+                                                      
+                                                  </td>
+                                                </tr>
+                                                  {% endfor %}
+
+                                              </tbody>
+                                            </table>
+                                          </div>
+                            </div>
+                          </div>
+                        </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                          <!-- contractor list table end -->
+                      </div>
+                        <!--end contractors tab-->
+
+                        <!--start pending team lead review tab-->
+                      <div class="tab-pane {% if tab == 'pending_tl_inspection' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'pending_tl_inspection' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Pending Teamleader Reviews <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                  
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                        <tr>
+                                            <th>Reviewer</th>
+                                            <th>Company Name</th>
+                                            <th>Last Updated at</th>
+                                            <th>Project Manager</th>
+                                            <th>Compliance Module</th>
+                                            <th>Reference</th>
+                                            <th>Observation</th>
+                                            <th>Photo Evidence</th>
+                                            <th>Video Evidence</th>
+                                            <th>Action</th>
+                                            <th>Report ID</th>
+                                            
+                                            <th>Options</th>
+                                        </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                      {% get_noncompliance_records request 'PENDING_TEAM_LEADER_REVIEW' as pending_reviews %}
+                                       {% for report in pending_reviews %}
+
+                                        <tr>
+                                            <td>{{ report.submitted_by.last_name }} {{ report.submitted_by.first_name }}<br />{{ report.submitted_by.bio }}</td>
+                                            <td>{{ report.contractor.company_name }}</td>
+                                            <td>{{ report.updated_at }}</td>
+                                            <td>{{ report.contractor.project_manager.first_name }} {{ report.contractor.project_manager.last_name }}</td>
+                                            <td>{{ report.module }}</td>
+                                            <td>{{ report.reference }} {{ report.parameter }}</td>
+                                            <td>{{ report.observation | safe }}</td>
+                                            <td>
+                                                {% if report.get_photos.count > 0 %}
+                                                {% for photo in report.get_photos %}
+                                                <ul style="list-style:none;">
+                                                    <li>
+                                                        <a href="{{ photo.file.url }}" target="_blank">
+                                                            <img width="500" height="500" src="{{ photo.file.url }}" />
+                                                            <span><i class="fa fa-search">Expand</i></span>
+                                                        </a>
+                                                        
+                                                    </li>
+                                                </ul>
+                                                
+                                                {% endfor %}
+                                                {% else %}
+                                                <p>No photo evidence available</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if report.get_videos.count > 0 %}
+                                                {% for video in report.get_videos %}
+                                                <ul style="list-style:none;">
+                                                    <li>
+                                                        <a href="{{ video.file.url }}" target="_blank">
+                                                            <img style="width:100%; height:auto;" src="https://www.elsalvadorsolidarity.org/wp-content/uploads/2021/07/Video-icon-Green-768x768.png" />
+                                                            <span><i class="fa fa-play">Play</i></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                
+                                                {% endfor %}
+                                                {% else %}
+                                                <p>No video evidence available</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ report.action | safe}}</td>
+                                            <td>{{ report.inspection_uid }}</td>
+                                            
+                                            <td>
+                                                <a href="{% url 'view_inspection_report' report.id %}" class="btn btn-secondary">View</a>
+
+                                            </td>
+                                        </tr>
+                                       
+                                      {% endfor %}
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                          {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end pending reports tab-->
+
+                        
+                        <!--start acknowledged reports tab-->
+                      <div class="tab-pane {% if tab == 'pending_cm_inspection' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'pending_cm_inspection' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Reports Pending Chief Manager Review <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                        <th>Reviewer</th>
+                                        <th>Company Name</th>
+                                        <th>Last Updated at</th>
+                                        <th>Project Manager</th>
+                                        <th>Compliance Module</th>
+                                        <th>Reference</th>
+                                        <th>Observation</th>
+                                        <th>Photo Evidence</th>
+                                        <th>Video Evidence</th>
+                                        <th>Action</th>
+                                        <th>Report ID</th>
+                                        <th>Options</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                      {% get_noncompliance_records request 'PENDING_MANAGER_REVIEW' as pending_reviews %}
+                                       {% for report in pending_reviews %}
+                                        
+                                        <tr>
+                                            <td>{{ report.submitted_by.last_name }} {{ report.submitted_by.first_name }}<br /><i>{{ report.submitted_by.bio }}</i></td>
+                                            <td>{{ report.contractor.company_name }}</td>
+                                            <td>{{ report.updated_at }}</td>
+                                            <td>{{ report.contractor.project_manager.first_name }} {{ report.contractor.project_manager.last_name }}</td>
+                                            <td>{{ report.module }}</td>
+                                            <td>{{ report.reference }} {{ report.parameter }}</td>
+                                            <td>{{ report.observation | safe }}</td>
+                                            <td>
+                                                {% if report.get_photos.count > 0 %}
+                                                {% for photo in report.get_photos %}
+                                                <ul style="list-style:none;">
+                                                    <li>
+                                                        <a href="{{ photo.file.url }}" target="_blank">
+                                                            <img width="500" height="500" src="{{ photo.file.url }}" />
+                                                            <span><i class="fa fa-search">Expand</i></span>
+                                                        </a>
+                                                        
+                                                    </li>
+                                                </ul>
+                                                
+                                                {% endfor %}
+                                                {% else %}
+                                                <p>No photo evidence available</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if report.get_videos.count > 0 %}
+                                                {% for video in report.get_videos %}
+                                                <ul style="list-style:none;">
+                                                    <li>
+                                                        <a href="{{ video.file.url }}" target="_blank">
+                                                            <img style="width:100%; height:auto;" src="https://www.elsalvadorsolidarity.org/wp-content/uploads/2021/07/Video-icon-Green-768x768.png" />
+                                                            <span><i class="fa fa-play">Play</i></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                
+                                                {% endfor %}
+                                                {% else %}
+                                                <p>No video evidence available</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ report.action | safe}}</td>
+                                            <td>{{ report.inspection_uid }}</td>
+                                            
+                                            <td>
+                                                <a href="{% url 'view_inspection_report' report.id %}" class="btn btn-secondary">View</a>
+
+                                            </td>
+                                        </tr>
+                                       
+                                        {% endfor %}
+
+
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                            {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end acknowledged reports tab-->
+
+                        <!--start published reports tab-->
+                      <div class="tab-pane {% if tab == 'published' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'published' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Published Reports <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                        <th>Reviewer</th>
+                                        <th>Company Name</th>
+                                        <th>Last Updated at</th>
+                                        <th>Project Manager</th>
+                                        <th>Compliance Module</th>
+                                        <th>Reference</th>
+                                        <th>Observation</th>
+                                        <th>Photo Evidence</th>
+                                        <th>Video Evidence</th>
+                                        <th>Action</th>
+                                        <th>Report ID</th>
+                                        <th>Options</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                      {% get_noncompliance_records request 'PUBLISHED' as pending_reviews %}
+                                       {% for report in pending_reviews %}
+                                       
+                                        <tr>
+                                            <td>{{ report.submitted_by.last_name }} {{ report.submitted_by.first_name }}<br /><i>{{ report.submitted_by.bio }}</i></td>
+                                            <td>{{ report.contractor.company_name }}</td>
+                                            <td>{{ report.updated_at }}</td>
+                                            <td>{{ report.contractor.project_manager.first_name }} {{ report.contractor.project_manager.last_name }}</td>
+                                            <td>{{ report.module }}</td>
+                                            <td>{{ report.reference }} {{ report.parameter }}</td>
+                                            <td>{{ report.observation | safe }}</td>
+                                            <td>
+                                                {% if report.get_photos.count > 0 %}
+                                                {% for photo in report.get_photos %}
+                                                <ul style="list-style:none;">
+                                                    <li>
+                                                        <a href="{{ photo.file.url }}" target="_blank">
+                                                            <img width="500" height="500" src="{{ photo.file.url }}" />
+                                                            <span><i class="fa fa-search">Expand</i></span>
+                                                        </a>
+                                                        
+                                                    </li>
+                                                </ul>
+                                                
+                                                {% endfor %}
+                                                {% else %}
+                                                <p>No photo evidence available</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if report.get_videos.count > 0 %}
+                                                {% for video in report.get_videos %}
+                                                <ul style="list-style:none;">
+                                                    <li>
+                                                        <a href="{{ video.file.url }}" target="_blank">
+                                                            <img style="width:100%; height:auto;" src="https://www.elsalvadorsolidarity.org/wp-content/uploads/2021/07/Video-icon-Green-768x768.png" />
+                                                            <span><i class="fa fa-play">Play</i></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                
+                                                {% endfor %}
+                                                {% else %}
+                                                <p>No video evidence available</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ report.action | safe}}</td>
+                                            <td>{{ report.inspection_uid }}</td>
+                                            
+                                            <td>
+                                                <a href="{% url 'view_inspection_report' report.id %}" class="btn btn-secondary">View</a>
+
+                                            </td>
+                                        </tr>
+                                       
+                                        {% endfor %}
+
+
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                            {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end rejected reports tab-->
+
+
+                        <!--start published reports tab-->
+                      <div class="tab-pane {% if tab == 'complied' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'complied' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Complied Reports <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                        <th>Reviewer</th>
+                                        <th>Company Name</th>
+                                        <th>Last Updated at</th>
+                                        <th>Project Manager</th>
+                                        <th>Compliance Module</th>
+                                        <th>Reference</th>
+                                        <th>Observation</th>
+                                        <th>Photo Evidence</th>
+                                        <th>Video Evidence</th>
+                                        <th>Action</th>
+                                        <th>Report ID</th>
+                                        <th>Options</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                      {% get_noncompliance_records request 'COMPLIED' as complied_reviews %}
+                                       {% for report in complied_reviews %}
+                                       
+                                        <tr>
+                                            <td>{{ report.submitted_by.last_name }} {{ report.submitted_by.first_name }}<br /><i>{{ report.submitted_by.bio }}</i></td>
+                                            <td>{{ report.contractor.company_name }}</td>
+                                            <td>{{ report.updated_at }}</td>
+                                            <td>{{ report.contractor.project_manager.first_name }} {{ report.contractor.project_manager.last_name }}</td>
+                                            <td>{{ report.module }}</td>
+                                            <td>{{ report.reference }} {{ report.parameter }}</td>
+                                            <td>{{ report.observation | safe }}</td>
+                                            <td>
+                                                {% if report.get_photos.count > 0 %}
+                                                {% for photo in report.get_photos %}
+                                                <ul style="list-style:none;">
+                                                    <li>
+                                                        <a href="{{ photo.file.url }}" target="_blank">
+                                                            <img width="500" height="500" src="{{ photo.file.url }}" />
+                                                            <span><i class="fa fa-search">Expand</i></span>
+                                                        </a>
+                                                        
+                                                    </li>
+                                                </ul>
+                                                
+                                                {% endfor %}
+                                                {% else %}
+                                                <p>No photo evidence available</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if report.get_videos.count > 0 %}
+                                                {% for video in report.get_videos %}
+                                                <ul style="list-style:none;">
+                                                    <li>
+                                                        <a href="{{ video.file.url }}" target="_blank">
+                                                            <img style="width:100%; height:auto;" src="https://www.elsalvadorsolidarity.org/wp-content/uploads/2021/07/Video-icon-Green-768x768.png" />
+                                                            <span><i class="fa fa-play">Play</i></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                
+                                                {% endfor %}
+                                                {% else %}
+                                                <p>No video evidence available</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ report.action | safe}}</td>
+                                            <td>{{ report.inspection_uid }}</td>
+                                            
+                                            <td>
+                                                <a href="{% url 'view_inspection_report' report.id %}" class="btn btn-secondary">View</a>
+
+                                            </td>
+                                        </tr>
+                                       
+                                        {% endfor %}
+
+
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                            {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end complied reports tab-->
+
+
+
+                        <!--start settings tab-->
+                      <div class="tab-pane {% if tab == 'settings' %} show active {% endif %}" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                          {% for record in records %}
+                        <form method="post" action="{% url 'compliance_enable_form' %}">
+                            <h2><u>Toggle submission form</u></h2>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>{% if record.submission_enabled %} disable {% else %} enable {% endif %} {{ record.organization_name }} application forms</label>
+                            <div class="icheckbox_flat-green">
+                                <input class="flat" type="checkbox" name="submission_enabled" {% if record.submission_enabled %}checked {% endif %} />
+                            </div>
+                            </div>
+                            
+                            <input type="hidden" value="{{ record.id }}" name="record_id" />
+                            <input type="submit" value="save" class="btn btn-primary" />
+                        </form>
+                          {% endfor %}
+
+                          <hr /><br />
+
+                          <div class="clearfix"></div>
+                            {% set_default_reminder_message request as context %}
+                          <form method="post" action="{% url 'send_reminder_message' %}">
+                              {% csrf_token %}
+                              <h2><u>Reminder Message</u></h2>
+                              <span class="text-info" >this will send an email to all contractors.</span>
+                            <div class="form-group">
+                              <label>Subject</label>
+                              <input class="form-control" type="text" value="{{ context.subject }}" name="subject" />
+                          </div>
+
+                            <div class="form-group">
+                                <label >Message</label>
+                                <textarea class="form-control" name="message">
+                                    {{ context.message }}
+                                </textarea>
+                            </div>
+                              <div class="form-group">
+                                  <input type="submit" class="btn btn-primary" value="Send" name="Send" />
+                              </div>
+                          </form>
+
+
+                          <br /><hr />
+                          <div class="form-group">
+                                    
+                            <form method="post" action="{% url 'update_staff_details' %}" enctype="multipart/form-data">
+                            
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {% if request.user.avatar %}
+                                        <div>
+                                            <img src="{{ request.user.avatar.url }}" width="100" height="100" />
+                                        </div>
+                                    {% endif %}
+                                    <label>Profile Picture</label>
+                                    <input type="file" accept="image/*" name="avatar" value="{{ request.user.avatar }}" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" name="username" value="{{ request.user.username }}" required class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" name="first_name" value="{{ request.user.first_name }}" required class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Other Name</label>
+                                    <input type="text" name="last_name" value="{{ request.user.last_name }}" required class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>About</label>
+                                    <input type="text" name="bio" placeholder="Project Manager" value="{{ request.user.bio }}" required class="form-control" />
+                                </div>
+
+                                
+                            
+                                <input type="hidden" value="{{ record.id }}" name="record_id" />
+                                <input type="submit" value="save" class="btn btn-primary" />
+                            </form>
+
+                          </div>
+                          <br /><hr />
+                            <h3><u>Change Password</u></h3>
+                          <form method="post" action="{% url 'change_password' %}">
+                              {% csrf_token %}
+                          {% get_password_change_form request.user as pass_form %}
+                              {{ pass_form }}
+
+                              {% for error in pass_form.errors %}
+                              <p class="text-danger">{{ error }}</p>
+                              {% endfor %}
+                              <button type="submit">Save changes</button>
+                            </form>
+                      </div>
+
+                        <!-- end settings tab -->
+                    </div>
+                  </div>
+                </div>
+              
+              
+              </div>

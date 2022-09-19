@@ -1,0 +1,803 @@
+﻿{% extends 'compliance/layout.html' %}
+{% block styles %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+    .double {
+      zoom: 2;
+      transform: scale(1);
+      -ms-transform: scale(1);
+      -webkit-transform: scale(1);
+      -o-transform: scale(1);
+      -moz-transform: scale(1);
+      transform-origin: 0 0;
+      -ms-transform-origin: 0 0;
+      -webkit-transform-origin: 0 0;
+      -o-transform-origin: 0 0;
+      -moz-transform-origin: 0 0;
+    }
+</style>
+<style>
+    /* Style the Image Used to Trigger the Modal */
+#myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+</style>
+{% endblock %}
+
+{% load static %}
+{% block content %}
+{% load datetime_tags %}
+{% load model_tags %}
+
+<div class="right_col" role="main">
+
+    <div class="">
+
+        <div class="page-title">
+            <div class="title_left">
+                
+                <h3 class="text-info">Non-Compliance Site Inspection <small>{{ inspection.contractor }}</small></h3>
+            </div>
+
+            <div class="title_right">
+                {% if request.user.is_manager %}
+                <form method="post" id="my_form" enctype="multipart/form-data" action="{% url 'toggle_noncompliance_resolve_status' %}" class="form-horizontal form-bordered">
+						{% csrf_token %}
+                        
+                        {% if inspection.is_published or inspection.is_resolved %}
+                        <div class="form-group pull-right">
+                            {% if not inspection.is_resolved %}
+                            <label>Toggle here if issue IS resolved</label>
+                            {% else %}
+                            <label>Toggle here is issue IS NOT resolved</label>
+                            {% endif %}
+                            <div class="custom-control custom-switch double ">
+                                <input data-toggle="tooltip" title="Check" onclick="return confirm('Are you sure?');" type="checkbox" class="custom-control-input " name="is_resolved" {% if inspection.is_resolved %} checked onchange="alert('Are you really sure?.'); this.form.submit();"{% else %} onchange="alert('Are you really sure?.'); this.form.submit();" {% endif %}  id="customSwitch1">
+                              
+                                <label class="custom-control-label" for="customSwitch1"></label>  
+                            </div>
+                            
+                            <!--
+                                
+                            
+                            <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" disabled id="customSwitch2">
+                              <label class="custom-control-label" for="customSwitch2">Disabled switch element</label>
+                            </div>    
+                            -->
+                        </div>
+                        {% endif %}
+                            <input type="hidden" name="inspection_id" value="{{ inspection.id }}" />
+                        </form>
+                {% endif %}
+            </div>
+        </div>
+
+
+
+        <div class="clearfix"></div>
+
+
+        <div class="row">
+            <div class="col-sm-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 class="text-info">{{ inspection.inspection_uid }} <small></small></h2>
+                        <div class="col-md-12 text-right">
+
+                            <p class="date"> Last updated: [{{ inspection.updated_at }}]</p>
+                            
+                            <a href="{% url 'inspection_report_download' inspection.id %}" class="btn btn-primary">Download Summary</a>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <h4 class="text-primary">Reported by:
+                    {% if request.user.is_staff %}
+                    <a href="{% url 'reviewer_profile' inspection.created_by.id 'pending' %}" ><span  class="text-secondary">{{ inspection.created_by.last_name }} {{ inspection.created_by.first_name }} </span></a>
+                    {% else %}
+                    <a href="#"><span  class="text-secondary">KoTDA PPDC DEPARTMENT MANAGEMENT</span></a>
+                    {% endif %}
+                     </h4>
+                    <hr />
+                    <h4 class="text-primary">Contractor: <span  class="text-secondary"> <a href="{% url 'contractor_profile' inspection.contractor.project_manager.id 'pending' %}">{{ inspection.contractor }} -( {{ inspection.contractor.project_manager.last_name }} )</a> </span></h4>
+                    <hr />
+                    <h4  class="text-primary">Reference: <span class="text-secondary">{{ inspection.reference.reference }}-{{ inspection.reference.parameter }}</span></h4>
+                    <hr />
+                    <h4 class="text-primary">Observation: </h4> <p class="text-secondary">{{ inspection.observation | safe }}</p>
+                    <hr />
+                    <h4 class="text-primary">Action: </h4> <p class="text-secondary">{{ inspection.action | safe }}</p>
+                    <hr />
+                    <h4 class="text-primary">Coordinates: </h4> <span class="text-secondary">{{ inspection.coordinates | safe }}</span>
+                    <hr />
+                    <h4 class="text-primary">Status: </h4> <span class="text-secondary">{{ inspection.status | safe }}</span>
+                    
+                      
+                </div>
+            </div>
+        </div>
+   
+    
+        <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Media <small> Evidence </small></h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="row">
+
+                        {% for document in inspection.get_document %}
+                      <div class="col-md-55">
+                        <div class="thumbnail">
+                          <div class="image view view-first">
+                          <!--   <img style="width: 100%; display: block;" src="{{ photo.file.url }}" alt="image" />  -->
+                              
+                        
+                        <a href="{{ document.file.url }}" target="_top">
+                            <img src="{{ document.file.url }}" alt="expand photo." style="width: 100%; display: block;" />
+                        </a>
+
+                            <div class="mask">
+                              <p>[{{ inspection.coordinates | safe }}]</p>
+                              <div class="tools tools-bottom">
+                                <a href="{{ document.file.url }}" target="_blank"><i class="fa fa-eye"></i></a>
+                                <!-- <a href="#"><i class="fa fa-pencil"></i></a> -->
+                                  {% if inspection.created_by == request.user or request.user.is_admin %}
+                                    <a data-toggle="tooltip" title="Delete document" onclick="return confirm('Are you sure you want to delete this item? this process is irreversible.');" href="{% url 'delete_inspection_document' document.id %}"><i class="fa fa-times"></i></a>
+                                  {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="caption">
+                            <p>{{ document.file.name }}</p>
+                          </div>
+                        </div>
+                      </div>
+                        {% endfor %}
+                        
+
+                        {% for photo in inspection.get_photos %}
+                      <div class="col-md-55">
+                        <div class="thumbnail">
+                          <div class="image view view-first">
+                          <!--   <img style="width: 100%; display: block;" src="{{ photo.file.url }}" alt="image" />  -->
+                              
+                        
+                        <a href="{{ photo.file.url }}" target="_top">
+                            <img src="{{ photo.file.url }}" alt="expand photo." style="width: 100%; display: block;" />
+                        </a>
+
+                            <div class="mask">
+                              <p>[{{ inspection.coordinates | safe }}]</p>
+                              <div class="tools tools-bottom">
+                                <a href="{{ photo.file.url }}" target="_blank"><i class="fa fa-search"></i></a>
+                                <!-- <a href="#"><i class="fa fa-pencil"></i></a> -->
+                                  {% if inspection.created_by == request.user or request.user.is_admin %}
+                                    <a data-toggle="tooltip" title="Delete photo" onclick="return confirm('Are you sure you want to delete this item? this process is irreversible.');" href="{% url 'delete_inspection_photo' photo.id %}"><i class="fa fa-times"></i></a>
+                                  {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="caption">
+                            <p>{{ photo.file.name }}</p>
+                          </div>
+                        </div>
+                      </div>
+                        {% endfor %}
+                     
+                        {% for video in inspection.get_videos %}
+                      <div class="col-md-55">
+                        <div class="thumbnail">
+                          <div class="image view view-first">
+                            <a href="{{ video.file.url }}" target="_top">
+                                <img src="https://www.elsalvadorsolidarity.org/wp-content/uploads/2021/07/Video-icon-Green-768x768.png" alt="play video." style="width: 100%; display: block;" />
+                            </a>
+                            <div class="mask no-caption">
+                              <div class="tools tools-bottom">
+                                <a href="{{ video.file.url }}" target="_blank" data-toggle="tooltip" title="Play video"><i class="fa fa-play"></i></a>
+                                <!-- <a href="#"><i class="fa fa-pencil"></i></a> -->
+                                  {% if inspection.created_by == request.user or request.user.is_admin %}
+                                    <a data-toggle="tooltip" title="Delete video" onclick="return confirm('Are you sure you want to delete this item? this process is irreversible.');" href="{% url 'delete_inspection_video' video.id %}"><i class="fa fa-times red"></i></a>
+                                  {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="caption">
+                            <p><strong>{{ video.file.name }}</strong>
+                            </p>
+                            
+                          </div>
+                        </div>
+                      </div>
+                     {% endfor %}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+        
+        <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Comments <span class="badge badge-pill badge-secondary">{{ inspection.get_all_comments.count }}</span></h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+
+                      <div class="row">
+                        {% if inspection.get_reviewer_comments.count > 0 %}
+                        <h4>Reviewer Comments</h4>
+                        {% endif %}
+                        <!-- start of reviewer messages -->
+                        <ul class="messages">
+                        {% for comment in inspection.get_reviewer_comments %}
+                          <li>
+                            <img src="{{ comment.comment_by.avatar }}" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <!-- <h3 class="date text-info">24</h3> -->
+                              <p class="month">{{ comment.updated_at }}</p>
+                            </div>
+                            <div class="message_wrapper">
+                                {% if request.user.is_staff %}
+                              <h4 class="heading">{{ comment.comment_by.last_name }}</h4>
+                                {% endif %}
+                              <blockquote class="message">{{ comment.comment | safe }}</blockquote>
+                              <br />
+                            <!--
+                                <div>
+                                <a class="btn btn-danger" href="#"><i class="fa fa-trash"></i></a>
+                            </div>
+                              <p class="url">
+                                <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                              </p>    
+                            -->
+                                
+                            </div>
+                          </li>
+                         {% endfor %}
+                        </ul>
+                        <!-- end of reviewer messages -->
+
+
+                        {% if inspection.get_teamleader_comments.count > 0 %}
+                        <h4 class="heading text-info">Team Leader Comments</h4>
+                        {% endif %}
+                        <!-- start of team leader messages -->
+                        <ul class="messages">
+                        {% for comment in inspection.get_teamleader_comments %}
+                          <li>
+                            <img src="{{ comment.comment_by.avatar }}" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <!-- <h3 class="date text-info">{{ comment.updated_at.day }}</h3> -->
+                              <p class="month">{{ comment.updated_at }}</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">{{ comment.comment_by.last_name }}</h4>
+                              <blockquote class="message">{{ comment.comment | safe }}</blockquote>
+                              <br />
+                              <!--
+                              <p class="url">
+                                <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                              </p>    
+                              -->
+                            </div>
+                          </li>
+                         {% endfor %}
+                        </ul>
+                        <!-- end of team leader messages -->
+
+
+                        {% if inspection.get_manager_comments.count > 0 %}
+                        <h4 class="heading text-info">Chief Manager Comments</h4>
+                        {% endif %}
+                        <!-- start of manager messages -->
+                        <ul class="messages">
+                        {% for comment in inspection.get_manager_comments %}
+                          <li>
+                            <img src="{{ comment.comment_by.avatar }}" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <!-- <h3 class="date text-info">{{ comment.updated_at.day }}</h3> -->
+                              <p class="month">{{ comment.updated_at }}</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">{{ comment.comment_by.last_name }}</h4>
+                              <blockquote class="message">{{ comment.comment | safe }}</blockquote>
+                              <br />
+                              <!--
+                                <p class="url">
+                                <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                              </p>    
+                              -->
+                            </div>
+                          </li>
+                         {% endfor %}
+                        </ul>
+                        <!-- end of manager messages -->
+
+                          
+                        {% if inspection.get_contractor_comments.count > 0 %}
+                        <h4 class="heading text-info">Project Manager Comments</h4>
+                        {% endif %}
+                        <!-- start of contractor messages -->
+                        <ul class="messages">
+                        {% for comment in inspection.get_contractor_comments %}
+                          <li>
+                            <img src="{{ comment.comment_by.avatar }}" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <!-- <h3 class="date text-info">{{ comment.updated_at.day }}</h3> -->
+                              <p class="month">{{ comment.updated_at }}</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">{{ comment.comment_by.last_name }}</h4>
+                              <blockquote class="message">{{ comment.comment | safe }}</blockquote>
+                              <br />
+                              <!--
+                                <p class="url">
+                                <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                              </p>    
+                              -->
+                            </div>
+                          </li>
+                         {% endfor %}
+                        </ul>
+                        <!-- end of contractor messages -->
+                      </div>
+
+
+                    <div class="row">
+                        <form method="post" id="my_form" enctype="multipart/form-data" action="{% url 'post_inspection_comment' %}" class="form-horizontal form-bordered">
+								{% csrf_token %}
+
+                            <!--draft status: ONly original reviewer can view and edit-->
+                                    {% if 'DRAFT'  in inspection.status %}
+                                        {% if request.user.is_manager or request.user.is_admin %}
+                                            <!--start manager comment-->
+                                            <div class="form-group">
+                                                <label>Chief Manager Comments</label>
+                                                
+                                                <div>
+                                                    <textarea id="summernote_mgmt" class="form-control"  name="mgmt_comment"></textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_mgmt').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: null,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+
+                                                <span class="text-info" ></span>
+                                            </div>
+                                            <!--end manager comment-->
+
+                                        <!-- to cm button -->
+                                        {% elif request.user.is_teamlead or request.user.is_admin %}
+                                            
+                                            <!--start team leader comment-->
+                                            <div class="form-group">
+                                                <label>Team leader Comments</label>
+                                                
+                                                <div>
+                                                    <textarea id="summernote_tl" class="form-control"  name="tl_comment"></textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_tl').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: null,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+                                                <span class="text-info" ></span>
+                                            </div>
+                                            <!--end team leader comment-->
+
+                                        {% elif request.user.is_reviewer or request.user.is_admin %}
+                                            <!--start reviewer comment-->
+                                            <div class="form-group">
+                                                <label>Reviewer Comments</label>
+                                                
+                                                <div>
+                                                    <textarea id="summernote_reviewer" class="form-control"  name="reviewer_comment"></textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_reviewer').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: null,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+
+                                                <span class="text-info" ></span>
+                                            </div>
+                                            <!--end reviewer comment-->
+                                        {% endif %}
+
+                                    <!-- pending team leader review: only TL and CM can view and edit  -->
+                                    {% elif 'PENDING_TEAM_LEADER_REVIEW' in inspection.status %}
+                            
+                                        {% if request.user.is_manager or request.user.is_admin %}
+                                            <!--start manager comment-->
+                                            <div class="form-group">
+                                                <label>Chief Manager Comments</label>
+                                                
+                                                <div>
+                                                    <textarea id="summernote_mgmt" class="form-control"  name="mgmt_comment"></textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_mgmt').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: null,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+
+                                                <span class="text-info" ></span>
+                                            </div>
+                                            <!--end manager comment-->
+
+                                    <!-- to cm button -->
+                                        {% elif request.user.is_teamlead or request.user.is_admin %}
+                                            
+                                        <!--start team leader comment-->
+                                        <div class="form-group">
+                                            <label>Team leader Comments</label>
+                                                
+                                            <div>
+                                                <textarea id="summernote_tl" class="form-control"  name="tl_comment"></textarea>
+                                            </div>
+                                            <script>
+                                                    $('#summernote_tl').summernote({
+                                                    tabsize: 2,
+                                                    height: 100,
+                                                    width: null,
+                                                    minHeight: null,             // set minimum height of editor
+                                                    maxHeight: null,             // set maximum height of editor
+                                                    focus: true                  // set focus to editable area after initializin
+                                                    });
+                                            </script>
+
+                                            <span class="text-info" ></span>
+                                        </div>
+                                        <!--end team leader comment-->
+
+                                        {% endif %}
+
+                                    <!--pending chief manager review: only chief manager can view and edit-->
+                                    {% elif 'PENDING_MANAGER_REVIEW' in inspection.status %}
+                                    <!-- to publish button -->
+                                        {% if request.user.is_manager or request.user.is_admin %}
+                                           <!--start manager comment-->
+                                            <div class="form-group">
+                                                <label>Chief Manager Comments</label>
+                                                
+                                                <div>
+                                                    <textarea id="summernote_mgmt" class="form-control"  name="mgmt_comment"></textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_mgmt').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: null,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+
+                                                <span class="text-info" ></span>
+                                            </div>
+                                            <!--end manager comment-->
+                                        {% endif %}
+
+                                    <!--published review:-->
+                                    {% elif 'PUBLISHED' in inspection.status %}
+                                     <!-- to contractor response button -->
+                                        {% if request.user.is_projectmanager or request.user.is_admin %}
+                                            <!--start manager comment-->
+                                            <div class="form-group">
+                                                <label>Project Manager Comments</label>
+                                                
+                                                <div>
+                                                    <textarea id="summernote_pm" class="form-control"  name="pm_comment"></textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_pm').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: null,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+
+                                                <span class="text-info" >Please attach photo evidence where applicable.</span>
+
+                                                
+											<div>
+											  {# 1. BUTTON TO TRIGGER THE ACTION #}
+											  <button type="button" class="btn btn-primary js-upload-photos">
+												<span class="glyphicon glyphicon-cloud-upload"></span> Upload evidence
+											</button>
+
+											  <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+												<span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+												<h3>Drop Files Here to Upload</h3>
+											</div>
+											
+											  {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+														
+														
+											<input id="fileupload" type="file" name="contractor_evidence" multiple
+													style="display: none;"
+													data-url="{% url 'basic_upload' %}"
+															   
+													accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+															   
+													data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}", "inspection_id":"{{ inspection.id }}" }'/>
+										
+												 {# 3. TABLE TO DISPLAY THE UPLOADED RESOURCES #}
+														
+														
+												<table id="gallery" class="table table-bordered">
+													<thead>
+													<tr>
+														<th>Contractor Evidence {{inspection.get_contractor_evidence.count}}</th>
+													</tr>
+													</thead>
+													<tbody>
+													{% for document in inspection.get_contractor_evidence %}
+													  <tr>
+														<td>
+														  {{ document.file.name }}
+														 <a class="btn btn-danger" href="{% url 'delete_inspection_document' document.id %}"><i class="fa fa-times">DELETE</i></a> 
+														 </td>
+													  </tr>
+													{% endfor %}
+													</tbody>
+												</table> 
+											  
+
+										  </div>
+
+                                            </div>
+                                            <!--end manager comment-->
+                                        {% endif %}
+
+                                    <!--complied-->
+                                    {% elif 'COMPLIED' in inspection.status %}
+                                        <p></p>
+								    {% endif %}
+
+
+
+                            
+													
+						<input type="hidden" name="inspection_id" value="{{ inspection.id }}" />
+
+                            
+								<!--Footer-->
+                                <div class="modal-footer" id="continue" >
+                                    <!--draft status: ONly original reviewer can view and edit-->
+                                    {% if 'DRAFT'  in inspection.status %}
+                                        {% if request.user.is_manager or request.user.is_admin %}
+                                            <button type="submit" name="reject" value="reject"  class="btn btn-outline-warning">Reject</button>
+								            <button type="submit" name="publish" value="publish" class="btn btn-success">Save and Publish Report</button>
+
+                                        {% elif request.user.is_teamlead or request.user.is_admin %}
+                                            <button type="submit" name="reject" value="reject"  class="btn btn-outline-warning">Reject</button>
+								            <button type="submit" name="forward_cm" value="forward_cm" class="btn btn-primary">Save and Forward to Chief Manager</button>
+                                        
+                                        {% elif request.user.is_reviewer or request.user.is_admin %}
+                                            <button type="submit" name="reject" value="reject"  class="btn btn-outline-warning">Reject</button>
+                                            <button type="submit" name="forward_tl" value="forward_tl" class="btn btn-primary">Save and Forward to Team Leader</button>
+                                        {% endif %}
+
+                                    <!-- pending team leader review: only TL and CM can view and edit  -->
+                                    {% elif 'PENDING_TEAM_LEADER_REVIEW' in inspection.status %}
+                                    <!-- to cm button -->
+                                        
+                                        {% if request.user.is_manager or request.user.is_admin %}
+                                            <button type="submit" name="reject" value="reject"  class="btn btn-outline-warning">Reject</button>
+								            <button type="submit" name="publish" value="publish" class="btn btn-success">Save and Publish Report</button>
+                                        {% elif request.user.is_teamlead or request.user.is_admin %}
+                                            <button type="submit" name="reject" value="reject"  class="btn btn-outline-warning">Reject</button>
+								            <button type="submit" name="forward_cm" value="forward_cm" class="btn btn-primary">Save and Forward to Chief Manager</button>
+                                    
+                                        {% endif %}
+
+                                    <!--pending chief manager review: only chief manager can view and edit-->
+                                    {% elif 'PENDING_MANAGER_REVIEW' in inspection.status %}
+                                    <!-- to publish button -->
+                                        {% if request.user.is_manager or request.user.is_admin %}
+                                            <button type="submit" name="reject" value="reject"  class="btn btn-outline-warning">Reject</button>
+                                            <button type="submit" name="publish" value="publish" class="btn btn-success">Save and Publish Report</button>
+                                        {% endif %}
+
+                                    <!--published review:-->
+                                    {% elif 'PUBLISHED' in inspection.status %}
+                                     <!-- to contractor response button -->
+                                        {% if request.user.is_projectmanager or request.user.is_admin %}
+                                            <button type="submit" name="contractor_response" value="contractor_response"  class="btn btn-primary">Submit comment to PPDC</button>
+                                        {% endif %}
+
+                                    <!--complied-->
+                                    {% elif 'COMPLIED' in inspection.status %}
+                                        <button type="button"  class="btn btn-success">COMPLIED</button>
+								    {% endif %}
+
+
+                                
+
+							</div>
+
+
+
+
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+    
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+
+{% block javascript %}
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="{% static 'assets/jQueryFileUpload/js/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'assets/jQueryFileUpload/js/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'assets/jQueryFileUpload/js/jquery.fileupload.js' %}"></script>
+<script src="{% static 'assets/jQueryFileUpload/js/jquery.fileupload.js' %}"></script>
+
+	  {# PHOTOS PAGE SCRIPTS #}
+<script src="{% static 'assets/jQueryFileUpload/js/file_upload.js' %}"></script>
+
+
+{# PHOTOS PAGE SCRIPTS #}
+<script>
+    // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById("myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+</script>
+
+{% endblock %}

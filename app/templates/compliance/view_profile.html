@@ -1,0 +1,637 @@
+﻿{% extends 'compliance/layout.html' %}
+
+{% block content %}
+    {% load datetime_tags %}
+    {% load model_tags %}
+    {% load form_tags %}
+
+    <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                  <div class="col-md-3">
+                      <img src="{{ contractor.avatar.url }}" width="150" height="150" />
+                  </div>
+                <div class="col-md-9">
+                    <h3> {{ contractor.contractorprofile.company_name }}  <small>Profile</small></h3>
+                </div>
+              </div>
+
+            </div>
+            
+            <div class="clearfix"></div>
+
+            {% if contractor.contractorprofile.is_blocked %}
+                  <div class="panel btn-warning">
+                       <h4 class="text-danger"><u>BLOCKED ACCOUNT</u></h4>
+                        <span class="text-info">{{ contractor.contractorprofile.block_reason |safe }}</span>
+                  </div>
+              {% endif %}
+
+              <div class="clearfix"></div>
+              
+              
+              <div class="row">
+                        {% for record in records %}
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-send-o"></i>
+                          </div>
+                          <div class="count">{{ contractor.contractorprofile.get_compliance_submissions.count }}</div>
+
+                          <h3>Total {{ record.type }} Compliance Submissions</h3>
+                            {% if contractor.contractorprofile.get_compliance_submissions.count <= 0 %}
+                                <p>No submissions yet</p>
+                            {% endif %}
+                        </div>
+                      </div>
+                        {% endfor %}
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                        <div class="tile-stats">
+                            
+                          <div class="icon"><i class="fa fa-clock-o"></i>
+                          </div>
+                          <div class="count">{{ contractor.get_pending_reports.count  }}</div>
+
+                          <h3>Pending Submissions</h3>
+                            
+                            {% for record in records %}
+                                {% contractor_has_sent_for_this_month record contractor as submitted_entry %}
+                                {% if submitted_entry != False %}
+                                    <p><strong>{{ submitted_entry.project_name }}</strong> report is pending review from PPDC</p>
+                                {% else %}
+                                    <p>No reports under review</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-thumbs-up"></i>
+                          </div>
+                          <div class="count">{{ contractor.get_acknowledged_reports.count }}</div>
+
+                          <h3>Acknowledged Submissions</h3>
+                          <p><!--some text goes here --></p>
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-thumbs-down"></i>
+                          </div>
+                          <div class="count">{{ contractor.get_rejected_reports.count }}</div>
+
+                          <h3>Rejected Submissions</h3>
+                          <p><!--some text goes here --></p>
+                        </div>
+                      </div>
+                    </div>
+
+              <div class="row">
+                  
+              <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-bars"></i> Reports <small>{% if contractor.contractorprofile.is_blocked %} [BLOCKED ACCOUNT] {% endif %}</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <!--start block button-->
+                      {% if request.user.is_manager %}
+                        {% if contractor.contractorprofile.is_blocked %}
+                      <li><a data-toggle="modal" data-target=".bs-example-modal-lg_un" class="btn btn-warning"><span class="text-danger">BLOCKED </span></a></li>
+                        {% else %}
+                        <li><a data-toggle="modal" data-target=".bs-example-modal-lg"  class="btn btn-warning"><span class="text-danger">Block Account </span></a></li>
+                        {% endif %}
+                      {% endif %}
+                        <!--end block button-->
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                      
+                      <li class="nav-item">
+                        <a class="nav-link{% if tab == 'pending' %} active {% endif %}" id="profile-tab" href="{% url 'contractor_profile' contractor.id 'pending' %}" role="tab" aria-controls="profile" aria-selected="false">Pending Submissions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'acknowledged' %} active {% endif %}" id="profile-tab"  href="{% url 'contractor_profile' contractor.id 'acknowledged' %}" role="tab" aria-controls="profile" aria-selected="false">Acknowledged Submissions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'rejected' %} active {% endif %}" id="profile-tab" href="{% url 'contractor_profile' contractor.id 'rejected' %}" role="tab" aria-controls="profile" aria-selected="false"> Rejected Submissions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {% if tab == 'non_compliance' %} active {% endif %}" id="profile-tab" href="{% url 'contractor_profile' contractor.id  'non_compliance' %}" role="tab" aria-controls="profile" aria-selected="false"> Non Compliance Reports</a>
+                      </li>
+                    
+                     
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        
+                        <!--start pending reports tab-->
+                      <div class="tab-pane {% if tab == 'pending' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'pending' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Pending Submissions <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                  
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Project Manager</th>
+                                                <th>Email</th>
+                                                <th>Project Name</th>
+                                                <th>Month</th>
+                                                <th>Year</th>
+                                                <th>Last Updated at</th>
+                                                <th>Options</th>
+                                            </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                {% for report in contractor.get_pending_reports %}
+                                            <tr>
+                                                <td>{{ report.last_updated_by.contractorprofile.company_name }}</td>
+                                                <td>{{ report.last_updated_by.first_name }} {{ report.last_updated_by.last_name }}</td>
+                                                <td>{{ report.last_updated_by.email }}</td>
+                                                <td>{{ report.project_name }}</td>
+                                                <td>{{ report.get_month }}</td>
+                                                <td>{{ report.year }}</td>
+                                                <td>{{ report.updated_at }}</td>
+                                                <td>
+                                                    <a href="{% url 'view_entry_report' report.id %}" class="btn btn-secondary">View</a>
+                                                    
+                                                </td>
+                                            </tr>
+                                                {% endfor %}
+
+
+
+                                            </tbody>
+                                        </table>
+                              
+                                        </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                          {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end pending reports tab-->
+
+                        
+                        <!--start acknowledged reports tab-->
+                      <div class="tab-pane {% if tab == 'acknowledged' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'acknowledged' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Acknowledged Submissions <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Project Manager</th>
+                                                <th>Email</th>
+                                                <th>Project Name</th>
+                                                <th>Month</th>
+                                                <th>Year</th>
+                                                <th>Last Updated at</th>
+                                                <th>Options</th>
+                                            </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                {% for report in contractor.get_acknowledged_reports %}
+                                            <tr>
+                                                <td>{{ report.last_updated_by.contractorprofile.company_name }}</td>
+                                                <td>{{ report.last_updated_by.first_name }} {{ report.last_updated_by.last_name }}</td>
+                                                <td>{{ report.last_updated_by.email }}</td>
+                                                <td>{{ report.project_name }}</td>
+                                                <td>{{ report.get_month }}</td>
+                                                <td>{{ report.year }}</td>
+                                                <td>{{ report.updated_at }}</td>
+                                                <td>
+                                                    <a href="{% url 'view_entry_report' report.id %}" class="btn btn-secondary">View</a>
+                                                    <a target="_blank" href="{% url 'report_download' report.id %}" class="btn btn-primary"><i class="fa fa-download"></i> Download Summary </a>
+                                                </td>
+                                            </tr>
+                                                {% endfor %}
+
+
+
+                                            </tbody>
+                                        </table>
+                              
+                                        </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                            {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end acknowledged reports tab-->
+
+                        <!--start rejected reports tab-->
+                      <div class="tab-pane {% if tab == 'rejected' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'rejected' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Rejected Submissions <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Project Manager</th>
+                                                <th>Email</th>
+                                                <th>Project Name</th>
+                                                <th>Month</th>
+                                                <th>Year</th>
+                                                <th>Last Updated at</th>
+                                                <th>Options</th>
+                                            </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                {% for report in contractor.get_rejected_reports %}
+                                            <tr>
+                                                <td>{{ report.last_updated_by.contractorprofile.company_name }}</td>
+                                                <td>{{ report.last_updated_by.first_name }} {{ report.last_updated_by.last_name }}</td>
+                                                <td>{{ report.last_updated_by.email }}</td>
+                                                <td>{{ report.project_name }}</td>
+                                                <td>{{ report.get_month }}</td>
+                                                <td>{{ report.year }}</td>
+                                                <td>{{ report.updated_at }}</td>
+                                                <td>
+                                                    <a href="{% url 'view_entry_report' report.id %}" class="btn btn-secondary">View</a>
+                                                    <a target="_blank" href="{% url 'report_download' report.id %}" class="btn btn-primary"><i class="fa fa-download"></i> Download Summary </a>
+                                                </td>
+                                            </tr>
+                                                {% endfor %}
+
+
+
+                                            </tbody>
+                                        </table>
+                              
+                                        </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                            {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end rejected reports tab-->
+
+                        <!--start non compliance reports tab-->
+                      <div class="tab-pane {% if tab == 'non_compliance' %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      
+                          <!--submission list table begin-->
+                          {% if tab == 'non_compliance' %}
+                          <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                              <div class="x_title">
+                                <h2>Non Compliance Reports <small>List</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                
+                              <div class="x_content">
+                                  <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                    
+                                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Reviewer</th>
+                                                <th>Company Name</th>
+                                                <th>Project Manager</th>
+                                                <th>Observation</th>
+                                                <th>Photo Evidence</th>
+                                                <th>Video Evidence</th>
+                                                <th>Action</th>
+                                                <th>Report ID</th>
+                                                <th>Last Updated at</th>
+                                                <th>Options</th>
+                                            </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                {% get_noncompliance_records request 'PUBLISHED' as pending_reviews %}
+                                                   {% for report in pending_reviews %}
+                                                    {% if report.contractor.project_manager == contractor %}
+                                                    <tr>
+                                                        <td>{{ report.id }}</td>
+                                                        <td>{{ report.submitted_by.last_name }} {{ report.submitted_by.first_name }}<br />{{ report.submitted_by.bio }}</td>
+                                                        <td>{{ report.contractor.company_name }}</td>
+                                                        <td>{{ report.contractor.project_manager.first_name }} {{ report.contractor.project_manager.last_name }}</td>
+                                                        <td>{{ report.observation | safe }}</td>
+                                                        <td>
+                                                            {% if report.get_photos.count > 0 %}
+                                                            {% for photo in report.get_photos %}
+                                                            <ul style="list-style:none;">
+                                                                <li>
+                                                                    <a href="{{ photo.file.url }}" target="_blank">
+                                                                        <img style="width:100%; height:auto;" src="{{ photo.file.url }}" />
+                                                                        <span><i class="fa fa-search"></i></span>
+                                                                    </a>
+                                                        
+                                                                </li>
+                                                            </ul>
+                                                
+                                                            {% endfor %}
+                                                            {% else %}
+                                                            <p>No photo evidence available</p>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {% if report.get_videos.count > 0 %}
+                                                            {% for video in report.get_videos %}
+                                                            <ul style="list-style:none;">
+                                                                <li>
+                                                                    <a href="{{ video.file.url }}" target="_blank">
+                                                                        <img style="width:100%; height:auto;" src="https://www.elsalvadorsolidarity.org/wp-content/uploads/2021/07/Video-icon-Green-768x768.png" />
+                                                                        <span><i class="fa fa-play"></i></span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                
+                                                            {% endfor %}
+                                                            {% else %}
+                                                            <p>No video evidence available</p>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ report.action | safe}}</td>
+                                                        <td>{{ report.inspection_uid }}</td>
+                                                        <td>{{ report.updated_at }}</td>
+                                                        <td>
+                                                            <a href="{% url 'view_inspection_report' report.id %}" class="btn btn-secondary">View</a>
+
+                                                        </td>
+                                                    </tr>
+                                                   
+                                                    {% endif %}
+                                                    {% endfor %}
+
+
+
+                                            </tbody>
+                                        </table>
+                              
+                                        </div>
+                            </div>
+                          </div>
+                        </div>
+                                
+                            </div>
+                          </div>
+                            {% endif %}
+                          <!-- submission list table end -->
+                      </div>
+                        <!--end non_compliance reports tab-->
+
+                    </div>
+                  
+                    
+                      <!-- start block modal -->
+
+                      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="myModalLabel2">Block {{ contractor.contractorprofile.company_name }} account&nbsp;&emsp;</h4>
+                                
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                              {{ entry_form.media }}
+                              {% if request.user.is_manager or request.user.is_admin %}
+                              <form action="{% url 'block_contractor' %}" method="post">
+                                  {% csrf_token %}
+                                <div class="modal-body">
+                                
+                                    <div class="form-group row">
+									
+                                    <br />
+                                        <div>
+                                             <h3 class="text-danger" ><u>WARNING</u></h3>
+                                            
+                                             <p class="text-danger">Are you sure? {{ contractor.contractorprofile.company_name }} will be blocked from submitting monthly compliance reports</p>
+
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <div class="form-group">
+                                                <label>State reason for blocking this user</label>
+
+                                                <div>
+                                                    <textarea id="summernote_{{ contractor.id }}" class="form-control" required name="block_reason"></textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_{{ contractor.id }}').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: 700,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+
+                                                <span class="text-info" >Give your reasons for blocking {{ contractor.contractorprofile.company_name }} account</span>
+                                            </div>
+                                        </div>
+								        <div class="col-md-9 col-sm-9 ">
+                                             <h4>Declaration</h4>
+                                             <p>I declare that all the information recorded herein include the complete records and is true to the best of my knowledge</p>
+
+										    <div class="checkbox">
+											    <label>
+												    <input type="checkbox" required name="is_acknowledged" value="0" class="flat"> I acknowledge
+											    </label>
+										    </div>
+												
+										</div>
+                           
+									</div>
+                                    
+                                    <input type="hidden" name="contractor_id" value="{{ contractor.contractorprofile.id }}" />
+                                
+                            
+                                </div>
+                            <div class="modal-footer">
+                              
+                                <button type="submit"  class="btn btn-danger">Confirm</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                              </form>
+                              {% else %}
+                              <p class="text-danger">You do not have permission to access this feature</p>
+                              {% endif %}
+
+                          </div>
+                        </div>
+                      </div>
+                  <!-- /end block modal modal -->
+
+
+                      <!-- start unblock modal -->
+
+                      <div class="modal fade bs-example-modal-lg_un" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="myModalLabel2">UnBlock {{ contractor.contractorprofile.company_name }} account&nbsp;&emsp;</h4>
+                                
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                              {{ entry_form.media }}
+                              {% if request.user.is_manager or request.user.is_admin %}
+                              <form action="{% url 'unblock_contractor' %}" method="post">
+                                  {% csrf_token %}
+                                <div class="modal-body">
+                                
+                                    <div class="form-group row">
+									
+                                    <br />
+                                        <div>
+                                             <h3 class="text-danger" ><u>WARNING</u></h3>
+                                            
+                                             <p class="text-danger">Are you sure? {{ contractor.contractorprofile.company_name }} will be unblocked and enabled to submit monthly compliance reports</p>
+
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <div class="form-group">
+                                                <label>State reason for unblocking this user</label>
+
+                                                <div>
+                                                    <textarea id="summernote_{{ contractor.id }}" class="form-control" required name="block_reason"></textarea>
+                                                </div>
+                                                <script>
+                                                        $('#summernote_{{ contractor.id }}').summernote({
+                                                        tabsize: 2,
+                                                        height: 100,
+                                                        width: 700,
+                                                        minHeight: null,             // set minimum height of editor
+                                                        maxHeight: null,             // set maximum height of editor
+                                                        focus: true                  // set focus to editable area after initializin
+                                                        });
+                                                </script>
+
+
+                                                <span class="text-info" >Give your reasons for unblocking {{ contractor.contractorprofile.company_name }} account</span>
+                                            </div>
+                                        </div>
+								        <div class="col-md-9 col-sm-9 ">
+                                             <h4>Declaration</h4>
+                                             <p>I declare that all the information recorded herein include the complete records and is true to the best of my knowledge</p>
+
+										    <div class="checkbox">
+											    <label>
+												    <input type="checkbox" required name="is_acknowledged" value="0" class="flat"> I acknowledge
+											    </label>
+										    </div>
+												
+										</div>
+                           
+									</div>
+                                    
+                                    <input type="hidden" name="contractor_id" value="{{ contractor.contractorprofile.id }}" />
+                                
+                            
+                                </div>
+                            <div class="modal-footer">
+                              
+                                <button type="submit"  class="btn btn-danger">Confirm</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                              </form>
+                              {% else %}
+                              <p class="text-danger">You do not have permission to access this feature</p>
+                              {% endif %}
+
+                          </div>
+                        </div>
+                      </div>
+                  <!-- /end unblock modal modal -->
+                  </div>
+                </div>
+              
+              
+              </div>
+
+              </div>
+
+
+          </div>
+        </div>
+        
+
+            
+        
+        <!-- /page content -->
+
+{% endblock %}

@@ -1,0 +1,231 @@
+﻿{% extends 'compliance/layout.html' %}
+
+{% block content %}
+    {% load datetime_tags %}
+    <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3 class="green"> User List  <small></small></h3>
+              </div>
+
+              <div class="title_right">
+                <!--search goes here-->
+              </div>
+            </div>
+            
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2 class="text-primary">
+                        
+                      Contractor list
+                    </h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <p></p>
+
+                    <!-- start project list -->
+                    <table class="table table-striped projects">
+                      <thead>
+                        <tr>
+                          <th style="width: 20%">Name</th>
+                          <th style="width: 20%">Email</th>
+                          <th>Pending Reports</th>
+                          <th>Acknowledged Reports</th>
+                          <th>Rejected Reports</th>
+                          <th style="width: 20%">Options</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          {% for contractor in contractors %}
+                            <tr>
+                            
+                              <td>#{{ contractor.username }}<br />
+                                <p>{{ contractor.first_name }} {{ contractor.last_name }}</p>
+                                </td>
+                                
+                              <td>
+                                <a href = "mailto:{{ contractor.email }}">{{ contractor.email }}</a>
+                              </td>
+                              <td>
+                                  <a class="btn btn-primary" data-toggle="modal" data-target=".bs-pending-modal-sm_{{ contractor.id }}">{{ contractor.get_pending_reports.count }}</a>
+                                <br />
+                                  <!-- Small modal -->
+
+                                <div class="modal fade bs-pending-modal-sm_{{ contractor.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel2">Pending Reports for {{ contractor.username }}</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                        <form action="{% url 'submit_report_entry' %}" method="post">
+                                            {% csrf_token %}
+                                        <div class="modal-body">
+                                                                                
+                                            
+
+                                            <div class="form-group row">
+									        <h4 class="info">Pending Reports</h4>
+                                                
+								                <div class="col-md-9 col-sm-9 ">
+                                                        {% for entry in contractor.get_pending_reports %}         
+										                    <div class="textarea">
+											                    <p>
+												                    <a class="text-danger" href="{% url  'view_entry_report' entry.id  %}"> <strong>{{ entry.project_name }} is PENDING REVIEW!</strong></a>
+											                    </p>
+										                    </div>
+                                                        {% endfor %}
+											        
+										        </div>
+                                                
+                           
+									        </div>
+                                    
+                                            <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                            
+                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <!--<button type="submit" class="btn btn-primary">Submit Report</button>-->
+                                    </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                </div>
+                                 <!-- /modals -->
+                              </td>
+                              <td class="project_progress">
+                                  
+                                <a class="btn btn-primary" data-toggle="modal" data-target=".bs-acknowledged-modal-sm_{{ contractor.id }}">{{ contractor.get_acknowledged_reports.count }}</a>
+                                <br />
+                                  <!-- Small modal -->
+
+                                <div class="modal fade bs-acknowledged-modal-sm_{{ contractor.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel2">Acknowledged Reports for {{ contractor.username }}</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                        <form action="{% url 'submit_report_entry' %}" method="post">
+                                            {% csrf_token %}
+                                        <div class="modal-body">
+                                                                                
+                                            
+
+                                            <div class="form-group row">
+									        <h4 class="info">Acknowledged Reports</h4>
+                                                
+								                <div class="col-md-9 col-sm-9 ">
+                                                        {% for entry in contractor.get_acknowledged_reports %}         
+										                    <div class="textarea">
+											                    <p>
+												                    <a class="text-success" href="{% url  'view_entry_report' entry.id  %}"> <strong>{{ entry.project_name }} is ACKNOWLEDGED!</strong></a>
+											                    </p>
+										                    </div>
+                                                        {% endfor %}
+											        
+										        </div>
+                                                
+                           
+									        </div>
+                                    
+                                            <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                            
+                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <!--<button type="button" class="btn btn-primary">Submit Report</button>-->
+                                    </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                </div>
+                                 <!-- /modals -->
+                              </td>
+                              <td>
+                                  <a class="btn btn-primary" data-toggle="modal" data-target=".bs-rejected-modal-sm_{{ contractor.id }}">{{ contractor.get_rejected_reports.count }}</a>
+                                <br />
+                                  <!-- Small modal -->
+
+                                <div class="modal fade bs-rejected-modal-sm_{{ contractor.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel2">Rejected Reports for {{ contractor.username }}</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                        <form action="{% url 'submit_report_entry' %}" method="post">
+                                            {% csrf_token %}
+                                        <div class="modal-body">
+                                                                                
+                                            
+
+                                            <div class="form-group row">
+									        <h4 class="info">Rejected Reports</h4>
+                                                
+								                <div class="col-md-9 col-sm-9 ">
+                                                        {% for entry in contractor.get_rejected_reports %}         
+										                    <div class="textarea">
+											                    <p>
+												                    <a class="text-danger" href="{% url  'view_entry_report' entry.id  %}"> <strong>{{ entry.project_name }} has been REJECTED!</strong></a>
+											                    </p>
+										                    </div>
+                                                        {% endfor %}
+											        
+										        </div>
+                                                
+                           
+									        </div>
+                                    
+                                            <input type="hidden" name="entry_id" value="{{ entry.id }}" />
+                            
+                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit Report</button>
+                                    </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                </div>
+                                 <!-- /modals -->
+                              </td>
+                              <td>
+                                 <p></p>
+                              </td>
+                            </tr>
+                          {% endfor %}
+
+
+                      </tbody>
+                    </table>
+                    <!-- end project list -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+{% endblock %}
